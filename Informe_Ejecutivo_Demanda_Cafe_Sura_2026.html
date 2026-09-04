@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Informe Ejecutivo — Demanda de Café Sura 2026</title>
+  <title>Informe Ejecutivo — Demanda de Café Sura 2026 (Consolidado Nacional 203 Sedes)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
     }
 
     .report-wrapper {
-      max-width: 1100px;
+      max-width: 1280px;
       margin: 0 auto;
       background: var(--bg-card);
       border-radius: 20px;
@@ -75,7 +75,7 @@
     .report-subtitle {
       color: #94a3b8;
       font-size: 1.05rem;
-      max-width: 700px;
+      max-width: 750px;
     }
 
     .report-meta-grid {
@@ -114,7 +114,9 @@
       margin: 2.5rem 0 1.25rem;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .section-heading:first-child { margin-top: 0; }
@@ -158,19 +160,52 @@
       color: var(--text-muted);
     }
 
+    /* Search & Filter Bar */
+    .table-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      padding: 0.65rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 320px;
+      outline: none;
+      background: #ffffff;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-warm);
+    }
+
+    .counter-badge {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
     /* Tables */
     .data-table-wrapper {
       overflow-x: auto;
       border: 1px solid var(--border);
       border-radius: 12px;
       margin-bottom: 2rem;
+      max-height: 680px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     th {
@@ -179,9 +214,12 @@
       font-weight: 700;
       padding: 0.85rem 1rem;
       border-bottom: 1px solid var(--border);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
 
     td {
@@ -217,15 +255,15 @@
       align-items: center;
       gap: 0.5rem;
       box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
-      float: right;
     }
 
     .print-btn:hover { background: #d97706; }
 
     @media print {
       body { padding: 0; background: #fff; }
-      .report-wrapper { box-shadow: none; border: none; }
-      .print-btn { display: none; }
+      .report-wrapper { box-shadow: none; border: none; max-width: 100%; }
+      .print-btn, .table-controls { display: none; }
+      .data-table-wrapper { max-height: none; overflow: visible; }
     }
   </style>
 </head>
@@ -236,7 +274,7 @@
         <div>
           <span class="badge-header">Informe Operativo Oficial</span>
           <h1 class="report-title">Demanda y Abastecimiento de Café SURA</h1>
-          <p class="report-subtitle">Consolidado Nacional y Plan Maestro de Despacho 2026 — Formulario RFI AYC</p>
+          <p class="report-subtitle">Consolidado Nacional Completo (203 Sedes) y Plan Maestro de Despacho 2026 — Formulario RFI AYC</p>
         </div>
         <button class="print-btn" onclick="window.print()">🖨 Imprimir / Guardar PDF</button>
       </div>
@@ -262,7 +300,9 @@
     </div>
 
     <div class="report-body">
-      <div class="section-heading">📌 1. Resumen de Indicadores Clave</div>
+      <div class="section-heading">
+        <span>📌 1. Resumen de Indicadores Clave</span>
+      </div>
       <div class="kpi-row">
         <div class="kpi-card kpi-card-highlight">
           <div class="kpi-card-val">4,389</div>
@@ -278,12 +318,14 @@
         </div>
         <div class="kpi-card">
           <div class="kpi-card-val">203</div>
-          <div class="kpi-card-label">Sedes Operativas Cubiertas</div>
+          <div class="kpi-card-label">Total Sedes con Pedido</div>
         </div>
       </div>
 
-      <div class="section-heading">☕ 2. Desglose por Especificación de Producto</div>
-      <div class="data-table-wrapper">
+      <div class="section-heading">
+        <span>☕ 2. Desglose por Especificación de Producto</span>
+      </div>
+      <div class="data-table-wrapper" style="max-height: none;">
         <table>
           <thead>
             <tr>
@@ -322,8 +364,10 @@
         </table>
       </div>
 
-      <div class="section-heading">📅 3. Cronograma Mensual de Despachos</div>
-      <div class="data-table-wrapper">
+      <div class="section-heading">
+        <span>📅 3. Cronograma Mensual de Despachos</span>
+      </div>
+      <div class="data-table-wrapper" style="max-height: none;">
         <table>
           <thead>
             <tr>
@@ -374,14 +418,23 @@
         </table>
       </div>
 
-      <div class="section-heading">🏢 4. Top 20 Sedes con Mayor Demanda de Café</div>
+      <div class="section-heading">
+        <span>🏢 4. Consolidado Nacional: Todas las Sedes que Ordenaron Café (203 Sedes)</span>
+      </div>
+
+      <div class="table-controls">
+        <input type="text" id="search-input" class="search-input" placeholder="🔍 Buscar por nombre de sede, centro de costo o dirección..." oninput="filterSedes()">
+        <span class="counter-badge" id="counter-badge">Mostrando 203 de 203 sedes</span>
+      </div>
+
       <div class="data-table-wrapper">
-        <table>
+        <table id="sedes-table">
           <thead>
             <tr>
               <th>#</th>
               <th>Sede</th>
-              <th>Centro de Costo</th>
+              <th>Centro Costo</th>
+              <th>Compañía</th>
               <th>Abr</th>
               <th>Jun</th>
               <th>Jul</th>
@@ -393,10 +446,11 @@
           </thead>
           <tbody>
             
-              <tr>
+              <tr data-sede="ips salud sura industriales" data-ceco="228400614" data-dir="cr 48# 26 50">
                 <td style="color: #94a3b8; font-weight: 600;">1</td>
-                <td><strong>IPS Salud Sura Industriales</strong></td>
-                <td style="font-family: monospace;">228400614</td>
+                <td><strong>IPS Salud Sura Industriales</strong><div style="font-size: 0.75rem; color: #64748b;">cr 48# 26 50</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400614</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
                 <td>30</td>
                 <td>40</td>
                 <td>30</td>
@@ -406,10 +460,11 @@
                 <td>0</td>
               </tr>
             
-              <tr>
+              <tr data-sede="campus almacen" data-ceco="1801-0001" data-dir="calle 49a # 63 - 55 torre suramericana (almacen via sub estación) - olga molina - 3186251151">
                 <td style="color: #94a3b8; font-weight: 600;">2</td>
-                <td><strong>Campus Almacen</strong></td>
-                <td style="font-family: monospace;">1801-0001</td>
+                <td><strong>Campus Almacen</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 49a # 63 - 55 Torre Suramericana (Almacen via Sub estación) - Olga Molina - 3186251151</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">1801-0001</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>140</td>
                 <td>—</td>
                 <td>—</td>
@@ -419,10 +474,11 @@
                 <td>140</td>
               </tr>
             
-              <tr>
+              <tr data-sede="salud sura bogotá calle 100" data-ceco="228400806" data-dir="calle 100 #19a-35">
                 <td style="color: #94a3b8; font-weight: 600;">3</td>
-                <td><strong>Salud Sura Bogotá Calle 100</strong></td>
-                <td style="font-family: monospace;">228400806</td>
+                <td><strong>Salud Sura Bogotá Calle 100</strong><div style="font-size: 0.75rem; color: #64748b;">calle 100 #19A-35</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400806</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
                 <td>25</td>
                 <td>29</td>
                 <td>29</td>
@@ -432,10 +488,11 @@
                 <td>0</td>
               </tr>
             
-              <tr>
+              <tr data-sede="edificio cem,piso 9 sede para el encuentro" data-ceco="182124002" data-dir="av el dorado # 68b - 85 piso 6">
                 <td style="color: #94a3b8; font-weight: 600;">4</td>
-                <td><strong>Edificio cem,piso 9 sede para el encuentro</strong></td>
-                <td style="font-family: monospace;">182124002</td>
+                <td><strong>Edificio cem,piso 9 sede para el encuentro</strong><div style="font-size: 0.75rem; color: #64748b;">Av el Dorado # 68B - 85 Piso 6</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182124002</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>40</td>
                 <td>20</td>
                 <td>25</td>
@@ -445,10 +502,11 @@
                 <td>105</td>
               </tr>
             
-              <tr>
+              <tr data-sede="ips portal del genoves torre bts" data-ceco="228400936" data-dir="carrera 24 #1a-104 ed. torre medica. piso 5">
                 <td style="color: #94a3b8; font-weight: 600;">5</td>
-                <td><strong>IPS Portal del Genoves Torre BTS</strong></td>
-                <td style="font-family: monospace;">228400936</td>
+                <td><strong>IPS Portal del Genoves Torre BTS</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 24 #1A-104 Ed. Torre Medica. Piso 5</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400936</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
                 <td>10</td>
                 <td>30</td>
                 <td>25</td>
@@ -458,10 +516,11 @@
                 <td>0</td>
               </tr>
             
-              <tr>
+              <tr data-sede="camacol" data-ceco="182121002" data-dir="cra 64 b 49 a 30">
                 <td style="color: #94a3b8; font-weight: 600;">6</td>
-                <td><strong>Camacol</strong></td>
-                <td style="font-family: monospace;">182121002</td>
+                <td><strong>Camacol</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 64 B 49 A 30</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121002</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>—</td>
                 <td>40</td>
                 <td>25</td>
@@ -471,10 +530,11 @@
                 <td>85</td>
               </tr>
             
-              <tr>
+              <tr data-sede="oficina central" data-ceco="182121007" data-dir="cra 64 b 49 a 30">
                 <td style="color: #94a3b8; font-weight: 600;">7</td>
-                <td><strong>Oficina Central</strong></td>
-                <td style="font-family: monospace;">182121007</td>
+                <td><strong>Oficina Central</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 64 B 49 A 30</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121007</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>—</td>
                 <td>40</td>
                 <td>25</td>
@@ -484,10 +544,11 @@
                 <td>85</td>
               </tr>
             
-              <tr>
+              <tr data-sede="torre proteccion 5 y 6" data-ceco="182125006" data-dir="cra 64 b 49 a 30">
                 <td style="color: #94a3b8; font-weight: 600;">8</td>
-                <td><strong>Torre Proteccion 5 y 6</strong></td>
-                <td style="font-family: monospace;">182125006</td>
+                <td><strong>Torre Proteccion 5 y 6</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 64 B 49 A 30</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182125006</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>—</td>
                 <td>40</td>
                 <td>25</td>
@@ -497,10 +558,11 @@
                 <td>85</td>
               </tr>
             
-              <tr>
+              <tr data-sede="torre suramericana" data-ceco="182121011" data-dir="cra 64 b 49 a 30">
                 <td style="color: #94a3b8; font-weight: 600;">9</td>
-                <td><strong>Torre Suramericana</strong></td>
-                <td style="font-family: monospace;">182121011</td>
+                <td><strong>Torre Suramericana</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 64 B 49 A 30</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121011</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>—</td>
                 <td>40</td>
                 <td>25</td>
@@ -510,10 +572,11 @@
                 <td>85</td>
               </tr>
             
-              <tr>
+              <tr data-sede="laboratorio industriales" data-ceco="288601011" data-dir="calle 27 no. 45-109 piso 2 medellin-antioquia ayudas diagnosticas sura industriales">
                 <td style="color: #94a3b8; font-weight: 600;">10</td>
-                <td><strong>Laboratorio Industriales</strong></td>
-                <td style="font-family: monospace;">288601011</td>
+                <td><strong>Laboratorio Industriales</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 27 No. 45-109 Piso 2 Medellin-Antioquia ayudas diagnosticas sura industriales</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601011</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
                 <td>35</td>
                 <td>30</td>
                 <td>—</td>
@@ -523,10 +586,11 @@
                 <td>0</td>
               </tr>
             
-              <tr>
+              <tr data-sede="centro empresa cali sede de encuentro" data-ceco="182123001" data-dir="calle 64n  5b-146 locales 7 y 8 centro empresa - rossana lara - 3206888473">
                 <td style="color: #94a3b8; font-weight: 600;">11</td>
-                <td><strong>Centro Empresa Cali Sede de encuentro</strong></td>
-                <td style="font-family: monospace;">182123001</td>
+                <td><strong>Centro Empresa Cali Sede de encuentro</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 64N  5B-146 Locales 7 y 8 Centro Empresa - Rossana Lara - 3206888473</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182123001</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>50</td>
                 <td>25</td>
                 <td>—</td>
@@ -536,10 +600,11 @@
                 <td>75</td>
               </tr>
             
-              <tr>
+              <tr data-sede="viva envigado sede encuentro piso 10" data-ceco="182121003" data-dir="carrera 48 # 32b sur-139 - olga molina - 3186251151">
                 <td style="color: #94a3b8; font-weight: 600;">12</td>
-                <td><strong>Viva Envigado Sede encuentro Piso 10</strong></td>
-                <td style="font-family: monospace;">182121003</td>
+                <td><strong>Viva Envigado Sede encuentro Piso 10</strong><div style="font-size: 0.75rem; color: #64748b;">CARRERA 48 # 32B SUR-139 - Olga Molina - 3186251151</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121003</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>20</td>
                 <td>15</td>
                 <td>40</td>
@@ -549,10 +614,11 @@
                 <td>75</td>
               </tr>
             
-              <tr>
+              <tr data-sede="sede encuentro portal de genoves" data-ceco="182122002" data-dir="carrera 24 # 1 a – 104 puerto colombia sector portal de genoves">
                 <td style="color: #94a3b8; font-weight: 600;">13</td>
-                <td><strong>Sede Encuentro Portal de Genoves</strong></td>
-                <td style="font-family: monospace;">182122002</td>
+                <td><strong>Sede Encuentro Portal de Genoves</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 24 # 1 A – 104 Puerto Colombia Sector Portal de Genoves</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182122002</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>52</td>
                 <td>19</td>
                 <td>—</td>
@@ -562,10 +628,11 @@
                 <td>71</td>
               </tr>
             
-              <tr>
+              <tr data-sede="sede encuentro mall 10 piso 2" data-ceco="182121006" data-dir="calle 10 #50-347 mall 10 piso 2">
                 <td style="color: #94a3b8; font-weight: 600;">14</td>
-                <td><strong>Sede Encuentro Mall 10 Piso 2</strong></td>
-                <td style="font-family: monospace;">182121006</td>
+                <td><strong>Sede Encuentro Mall 10 Piso 2</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 10 #50-347 Mall 10 Piso 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121006</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>30</td>
                 <td>18</td>
                 <td>17</td>
@@ -575,10 +642,11 @@
                 <td>70</td>
               </tr>
             
-              <tr>
+              <tr data-sede="laboratorio central bogotá" data-ceco="288603013" data-dir="calle 25g no. 96b - 63 piso 3 edificio volvo">
                 <td style="color: #94a3b8; font-weight: 600;">15</td>
-                <td><strong>Laboratorio Central Bogotá</strong></td>
-                <td style="font-family: monospace;">288603013</td>
+                <td><strong>Laboratorio Central Bogotá</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 25G No. 96B - 63 Piso 3 Edificio Volvo</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288603013</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
                 <td>15</td>
                 <td>18</td>
                 <td>10</td>
@@ -588,10 +656,11 @@
                 <td>0</td>
               </tr>
             
-              <tr>
+              <tr data-sede="centros de servicios bogota calle 137" data-ceco="509003002" data-dir="av 19 n. 137-21">
                 <td style="color: #94a3b8; font-weight: 600;">16</td>
-                <td><strong>Centros de Servicios Bogota Calle 137</strong></td>
-                <td style="font-family: monospace;">509003002</td>
+                <td><strong>Centros de Servicios Bogota Calle 137</strong><div style="font-size: 0.75rem; color: #64748b;">AV 19 N. 137-21</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">509003002</td>
+                <td style="font-size: 0.8rem; color: #475569;">Operaciones Generales</td>
                 <td>10</td>
                 <td>10</td>
                 <td>25</td>
@@ -601,10 +670,11 @@
                 <td>15</td>
               </tr>
             
-              <tr>
+              <tr data-sede="eps almacentro" data-ceco="217300210" data-dir="cra 43 a # 34 - 95 piso 3 - eps almacentro">
                 <td style="color: #94a3b8; font-weight: 600;">17</td>
-                <td><strong>EPS Almacentro</strong></td>
-                <td style="font-family: monospace;">217300210</td>
+                <td><strong>EPS Almacentro</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 43 A # 34 - 95 Piso 3 - EPS Almacentro</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217300210</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
                 <td>—</td>
                 <td>20</td>
                 <td>20</td>
@@ -614,10 +684,11 @@
                 <td>0</td>
               </tr>
             
-              <tr>
+              <tr data-sede="sede para el encuentro ibague" data-ceco="182125004" data-dir="cra 5 no 31-72 barrio cadiz  - paola montenegro - 3008225383">
                 <td style="color: #94a3b8; font-weight: 600;">18</td>
-                <td><strong>Sede para el encuentro Ibague</strong></td>
-                <td style="font-family: monospace;">182125004</td>
+                <td><strong>Sede para el encuentro Ibague</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 5 No 31-72 Barrio Cadiz  - Paola Montenegro - 3008225383</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182125004</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>15</td>
                 <td>25</td>
                 <td>15</td>
@@ -627,10 +698,11 @@
                 <td>45</td>
               </tr>
             
-              <tr>
+              <tr data-sede="ay dx sao paulo" data-ceco="288601021" data-dir="cra 43a # 18 sur 135, piso 3, local 331, centro empresarial sao paulo.">
                 <td style="color: #94a3b8; font-weight: 600;">19</td>
-                <td><strong>Ay Dx Sao Paulo</strong></td>
-                <td style="font-family: monospace;">288601021</td>
+                <td><strong>Ay Dx Sao Paulo</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 43A # 18 Sur 135, piso 3, local 331, Centro Empresarial Sao Paulo.</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601021</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
                 <td>10</td>
                 <td>16</td>
                 <td>14</td>
@@ -640,10 +712,11 @@
                 <td>0</td>
               </tr>
             
-              <tr>
+              <tr data-sede="sede encuentro gerencia de servicios financieros 104" data-ceco="182124004" data-dir="av 19 # 104 – 37 piso 3">
                 <td style="color: #94a3b8; font-weight: 600;">20</td>
-                <td><strong>Sede encuentro Gerencia de Servicios Financieros 104</strong></td>
-                <td style="font-family: monospace;">182124004</td>
+                <td><strong>Sede encuentro Gerencia de Servicios Financieros 104</strong><div style="font-size: 0.75rem; color: #64748b;">Av 19 # 104 – 37 piso 3</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182124004</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
                 <td>5</td>
                 <td>10</td>
                 <td>18</td>
@@ -653,19 +726,2652 @@
                 <td>51</td>
               </tr>
             
+              <tr data-sede="salud sura chipichape" data-ceco="228400716" data-dir="avenida 6 bis # 35n - 64, mauricio cardenas montoya, 3145183543">
+                <td style="color: #94a3b8; font-weight: 600;">21</td>
+                <td><strong>Salud Sura Chipichape</strong><div style="font-size: 0.75rem; color: #64748b;">Avenida 6 Bis # 35N - 64, Mauricio Cardenas Montoya, 3145183543</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400716</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>22</td>
+                <td>29</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">51</strong></td>
+                <td>51</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede de encuentro sucursal poblado" data-ceco="182121010" data-dir="cra 30 # 10-81">
+                <td style="color: #94a3b8; font-weight: 600;">22</td>
+                <td><strong>Sede de encuentro Sucursal Poblado</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 30 # 10-81</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121010</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>20</td>
+                <td>15</td>
+                <td>—</td>
+                <td>15</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">50</strong></td>
+                <td>0</td>
+                <td>50</td>
+              </tr>
+            
+              <tr data-sede="sede encuentro consultoria bogota 125" data-ceco="182124001" data-dir="calle 125 # 19 - 24 oficina 402">
+                <td style="color: #94a3b8; font-weight: 600;">23</td>
+                <td><strong>Sede Encuentro Consultoria bogota 125</strong><div style="font-size: 0.75rem; color: #64748b;">CALLE 125 # 19 - 24 OFICINA 402</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182124001</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>—</td>
+                <td>10</td>
+                <td>18</td>
+                <td>20</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">48</strong></td>
+                <td>0</td>
+                <td>48</td>
+              </tr>
+            
+              <tr data-sede="sucursal san fernando" data-ceco="182121009" data-dir="cra 43a # 1-50 piso 6 torre 2">
+                <td style="color: #94a3b8; font-weight: 600;">24</td>
+                <td><strong>Sucursal San Fernando</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 43A # 1-50 Piso 6 Torre 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121009</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>20</td>
+                <td>6</td>
+                <td>10</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">46</strong></td>
+                <td>0</td>
+                <td>46</td>
+              </tr>
+            
+              <tr data-sede="salud en casa industriales" data-ceco="228400618" data-dir="contacto: yenifer gómez
+tel: 3185714500
+sede: salud en casa industriales
+dirección: calle 26 # 45-106
+ciudad medellín.">
+                <td style="color: #94a3b8; font-weight: 600;">25</td>
+                <td><strong>Salud en Casa Industriales</strong><div style="font-size: 0.75rem; color: #64748b;">Contacto: Yenifer Gómez
+Tel: 3185714500
+Sede: Salud en casa industriales
+Dirección: Calle 26 # 45-106
+Ciudad Medellín.</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400618</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>15</td>
+                <td>15</td>
+                <td>15</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">45</strong></td>
+                <td>45</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede de encuentro cc. pereira plaza" data-ceco="182125003" data-dir="cll 15 # 13 -110 cc. pereira plaza local 202 - paola montenegro - 3008225383">
+                <td style="color: #94a3b8; font-weight: 600;">26</td>
+                <td><strong>Sede de Encuentro CC. Pereira plaza</strong><div style="font-size: 0.75rem; color: #64748b;">Cll 15 # 13 -110 CC. Pereira Plaza local 202 - Paola Montenegro - 3008225383</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182125003</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>15</td>
+                <td>15</td>
+                <td>15</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">45</strong></td>
+                <td>0</td>
+                <td>45</td>
+              </tr>
+            
+              <tr data-sede="sede encuentro sucursal armenia" data-ceco="182125001" data-dir="cr 14 9 norte 16, cc mocawa plaza p 2 lc 201 - paola montenegro - 3008225383">
+                <td style="color: #94a3b8; font-weight: 600;">27</td>
+                <td><strong>Sede Encuentro sucursal Armenia</strong><div style="font-size: 0.75rem; color: #64748b;">CR 14 9 norte 16, CC Mocawa Plaza P 2 LC 201 - Paola Montenegro - 3008225383</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182125001</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>15</td>
+                <td>15</td>
+                <td>15</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">45</strong></td>
+                <td>0</td>
+                <td>45</td>
+              </tr>
+            
+              <tr data-sede="sede para el encuentro manizales" data-ceco="182125002" data-dir="cra 23 # 64b - 33 edificio siglo xxi. p3 - paola montenegro - 3008225383">
+                <td style="color: #94a3b8; font-weight: 600;">28</td>
+                <td><strong>Sede para el encuentro Manizales</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 23 # 64B - 33 Edificio Siglo XXI. P3 - Paola Montenegro - 3008225383</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182125002</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>15</td>
+                <td>15</td>
+                <td>15</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">45</strong></td>
+                <td>0</td>
+                <td>45</td>
+              </tr>
+            
+              <tr data-sede="ay dx rio lili" data-ceco="288602075" data-dir="carrera 103 # 13a-23">
+                <td style="color: #94a3b8; font-weight: 600;">29</td>
+                <td><strong>Ay Dx Rio Lili</strong><div style="font-size: 0.75rem; color: #64748b;">CARRERA 103 # 13A-23</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602075</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>8</td>
+                <td>12</td>
+                <td>10</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">40</strong></td>
+                <td>40</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="torre corporativa" data-ceco="182121012" data-dir="cra 64 b 49 a 30">
+                <td style="color: #94a3b8; font-weight: 600;">30</td>
+                <td><strong>Torre Corporativa</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 64 B 49 A 30</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121012</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>—</td>
+                <td>—</td>
+                <td>20</td>
+                <td>20</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">40</strong></td>
+                <td>0</td>
+                <td>40</td>
+              </tr>
+            
+              <tr data-sede="torre corporativa (edif. redondo)" data-ceco="182121012" data-dir="cra 64b # 49a-30">
+                <td style="color: #94a3b8; font-weight: 600;">31</td>
+                <td><strong>Torre Corporativa (Edif. Redondo)</strong><div style="font-size: 0.75rem; color: #64748b;">cra 64b # 49a-30</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121012</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>—</td>
+                <td>40</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">40</strong></td>
+                <td>0</td>
+                <td>40</td>
+              </tr>
+            
+              <tr data-sede="ips urgencias pasoancho" data-ceco="228400712" data-dir="cra 50 # 12a - 90 b santa anita - cali">
+                <td style="color: #94a3b8; font-weight: 600;">32</td>
+                <td><strong>IPS Urgencias Pasoancho</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 50 # 12A - 90 B Santa Anita - Cali</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400712</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>10</td>
+                <td>10</td>
+                <td>8</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">38</strong></td>
+                <td>38</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salvamentos guarne" data-ceco="509004000" data-dir="guarne kilometro 31+500 autopista medellín-bogotá  200 metros despues del retorno 10 salvamentos guarne">
+                <td style="color: #94a3b8; font-weight: 600;">33</td>
+                <td><strong>Salvamentos Guarne</strong><div style="font-size: 0.75rem; color: #64748b;">Guarne Kilometro 31+500 Autopista Medellín-Bogotá  200 metros despues del retorno 10 Salvamentos Guarne</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">509004000</td>
+                <td style="font-size: 0.8rem; color: #475569;">Operaciones Generales</td>
+                <td>8</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">38</strong></td>
+                <td>38</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips olaya" data-ceco="228400838" data-dir="kra 14 # 26a-79 sur">
+                <td style="color: #94a3b8; font-weight: 600;">34</td>
+                <td><strong>IPS Olaya</strong><div style="font-size: 0.75rem; color: #64748b;">Kra 14 # 26A-79 Sur</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400838</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>10</td>
+                <td>8</td>
+                <td>9</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">37</strong></td>
+                <td>37</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips sura centro" data-ceco="228400601" data-dir="cra 43 # 50-58">
+                <td style="color: #94a3b8; font-weight: 600;">35</td>
+                <td><strong>IPS Sura Centro</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 43 # 50-58</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400601</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>10</td>
+                <td>10</td>
+                <td>8</td>
+                <td>8</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">36</strong></td>
+                <td>36</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="laboratorio salud sura chipichape" data-ceco="288602013" data-dir="av. 6 a bis # 35 n 64 piso 4 ed salud sura chipichape">
+                <td style="color: #94a3b8; font-weight: 600;">36</td>
+                <td><strong>Laboratorio Salud Sura Chipichape</strong><div style="font-size: 0.75rem; color: #64748b;">AV. 6 A BIS # 35 N 64 PISO 4 ED SALUD SURA CHIPICHAPE</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602013</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">35</strong></td>
+                <td>35</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="gestion documental (caribe)" data-ceco="102117000" data-dir="cra 64 # 68 - 75 cas caribe">
+                <td style="color: #94a3b8; font-weight: 600;">37</td>
+                <td><strong>Gestion Documental (Caribe)</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 64 # 68 - 75 Cas Caribe</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">102117000</td>
+                <td style="font-size: 0.8rem; color: #475569;">Seguros Generales</td>
+                <td>15</td>
+                <td>—</td>
+                <td>—</td>
+                <td>20</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">35</strong></td>
+                <td>35</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sucursal comercial telefonica(piso 2)" data-ceco="502670001" data-dir="calle 10 #50-347 mall 10">
+                <td style="color: #94a3b8; font-weight: 600;">38</td>
+                <td><strong>Sucursal Comercial Telefonica(piso 2)</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 10 #50-347 Mall 10</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">502670001</td>
+                <td style="font-size: 0.8rem; color: #475569;">Operaciones Generales</td>
+                <td>—</td>
+                <td>18</td>
+                <td>10</td>
+                <td>7</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">35</strong></td>
+                <td>0</td>
+                <td>35</td>
+              </tr>
+            
+              <tr data-sede="ips mayorca" data-ceco="228400700" data-dir="cra 48a # 50 sur 128 local 9002 cc mayorca torre medica piso 9">
+                <td style="color: #94a3b8; font-weight: 600;">39</td>
+                <td><strong>IPS Mayorca</strong><div style="font-size: 0.75rem; color: #64748b;">cra 48a # 50 sur 128 local 9002 CC mayorca torre medica piso 9</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400700</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>8</td>
+                <td>8</td>
+                <td>6</td>
+                <td>12</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">34</strong></td>
+                <td>34</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura los almendros" data-ceco="288601082" data-dir="calle 33 #74-e 134  local ayudas diagnosticas sura - sotano 1">
+                <td style="color: #94a3b8; font-weight: 600;">40</td>
+                <td><strong>Ay Dx Sura Los Almendros</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 33 #74-E 134  Local Ayudas Diagnosticas SURA - SOTANO 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601082</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>6</td>
+                <td>8</td>
+                <td>10</td>
+                <td>8</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">32</strong></td>
+                <td>32</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips plaza central" data-ceco="228400807" data-dir="carrera 65 n° 11 – 50 local 3-63 / c.c plaza central (rehabilitacion)">
+                <td style="color: #94a3b8; font-weight: 600;">41</td>
+                <td><strong>IPS Plaza Central</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 65 N° 11 – 50 Local 3-63 / C.C Plaza Central (Rehabilitacion)</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400807</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>5</td>
+                <td>10</td>
+                <td>8</td>
+                <td>8</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">31</strong></td>
+                <td>31</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa cali" data-ceco="228400705" data-dir="cra 38 a # 5 a - 22">
+                <td style="color: #94a3b8; font-weight: 600;">42</td>
+                <td><strong>Salud en Casa Cali</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 38 A # 5 A - 22</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400705</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>5</td>
+                <td>10</td>
+                <td>10</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">31</strong></td>
+                <td>31</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips atep country" data-ceco="228400833" data-dir="cra 16a # 84 - 05 piso 3">
+                <td style="color: #94a3b8; font-weight: 600;">43</td>
+                <td><strong>IPS ATEP Country</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 16A # 84 - 05 PISO 3</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400833</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>9</td>
+                <td>9</td>
+                <td>12</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">30</strong></td>
+                <td>30</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="urgencias robledo" data-ceco="228400625" data-dir="calle 78 # 79 a 03">
+                <td style="color: #94a3b8; font-weight: 600;">44</td>
+                <td><strong>Urgencias Robledo</strong><div style="font-size: 0.75rem; color: #64748b;">CALLE 78 # 79 A 03</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400625</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>12</td>
+                <td>6</td>
+                <td>6</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">30</strong></td>
+                <td>30</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede encuentro direccion bucaramanga" data-ceco="182122004" data-dir="cra 29 # 45-94 piso 7 c empresarial seguros atlas / calle 35#29-85 autos burcaramanga son los auditorios de sede encuentro">
+                <td style="color: #94a3b8; font-weight: 600;">45</td>
+                <td><strong>Sede Encuentro Direccion Bucaramanga</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 29 # 45-94 Piso 7 C Empresarial Seguros Atlas / Calle 35#29-85 Autos Burcaramanga son los auditorios de sede encuentro</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182122004</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>—</td>
+                <td>8</td>
+                <td>16</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">30</strong></td>
+                <td>0</td>
+                <td>30</td>
+              </tr>
+            
+              <tr data-sede="one plaza" data-ceco="122115000" data-dir="cra 43 a 5 a 113 p 13 one plaza - olga molina - 3186251151">
+                <td style="color: #94a3b8; font-weight: 600;">46</td>
+                <td><strong>One Plaza</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 43 A 5 A 113 P 13 One Plaza - Olga Molina - 3186251151</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">122115000</td>
+                <td style="font-size: 0.8rem; color: #475569;">Grupo Sura</td>
+                <td>30</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">30</strong></td>
+                <td>0</td>
+                <td>30</td>
+              </tr>
+            
+              <tr data-sede="torre corporativa piso 6, 8 y 9 (campus)" data-ceco="152115000" data-dir="calle 49a # 63 - 55 torre suramericana (almacen via sub estación) - olga molina - 3186251151">
+                <td style="color: #94a3b8; font-weight: 600;">47</td>
+                <td><strong>Torre Corporativa Piso 6, 8 y 9 (Campus)</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 49a # 63 - 55 Torre Suramericana (Almacen via Sub estación) - Olga Molina - 3186251151</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">152115000</td>
+                <td style="font-size: 0.8rem; color: #475569;">Suramericana S.A.</td>
+                <td>20</td>
+                <td>10</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">30</strong></td>
+                <td>0</td>
+                <td>30</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura plaza central" data-ceco="288603105" data-dir="kr  65 no 11 50  local 248">
+                <td style="color: #94a3b8; font-weight: 600;">48</td>
+                <td><strong>Ay Dx Sura Plaza Central</strong><div style="font-size: 0.75rem; color: #64748b;">KR  65 NO 11 50  LOCAL 248</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288603105</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>7</td>
+                <td>10</td>
+                <td>7</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">29</strong></td>
+                <td>29</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="plataforma local 45" data-ceco="217300310" data-dir="cll 64n # 5b - 146 lc.45 tel 6648333">
+                <td style="color: #94a3b8; font-weight: 600;">49</td>
+                <td><strong>Plataforma local 45</strong><div style="font-size: 0.75rem; color: #64748b;">Cll 64N # 5B - 146 LC.45 Tel 6648333</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217300310</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>12</td>
+                <td>12</td>
+                <td>—</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">29</strong></td>
+                <td>29</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede encuentro arl office center" data-ceco="182122001" data-dir="cra 54 # 68-196 edificio prado office center ofi. 304">
+                <td style="color: #94a3b8; font-weight: 600;">50</td>
+                <td><strong>Sede Encuentro ARL Office Center</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 54 # 68-196 Edificio prado office center ofi. 304</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182122001</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>3</td>
+                <td>8</td>
+                <td>14</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">28</strong></td>
+                <td>1</td>
+                <td>27</td>
+              </tr>
+            
+              <tr data-sede="sc atención domiciliaria bogotá" data-ceco="228400809" data-dir="carrera 65 n° 11 – 50 local 3-63 / c.c plaza central salud en casa">
+                <td style="color: #94a3b8; font-weight: 600;">51</td>
+                <td><strong>SC Atención Domiciliaria Bogotá</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 65 N° 11 – 50 Local 3-63 / C.C Plaza Central Salud en Casa</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400809</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>4</td>
+                <td>9</td>
+                <td>7</td>
+                <td>7</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">27</strong></td>
+                <td>27</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura imagenes portal de genoves" data-ceco="288604005" data-dir="cra 24 a no. 1 a -104 piso 2. pto colombia">
+                <td style="color: #94a3b8; font-weight: 600;">52</td>
+                <td><strong>Ay Dx Sura IMAGENES Portal De Genoves</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 24 A No. 1 A -104 PISO 2. PTO COLOMBIA</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604005</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>8</td>
+                <td>6</td>
+                <td>6</td>
+                <td>7</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">27</strong></td>
+                <td>27</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips centro de rehabilitación" data-ceco="228400647" data-dir="calle 27 # 45-59 centro de rehabilitación medellín sótano">
+                <td style="color: #94a3b8; font-weight: 600;">53</td>
+                <td><strong>IPS Centro de Rehabilitación</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 27 # 45-59 Centro de Rehabilitación Medellín sótano</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400647</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>7</td>
+                <td>7</td>
+                <td>8</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">26</strong></td>
+                <td>26</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="eps manizales" data-ceco="217300220" data-dir="cra 23 # 64b - 33 edificio siglo xxi. p3">
+                <td style="color: #94a3b8; font-weight: 600;">54</td>
+                <td><strong>Eps Manizales</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 23 # 64B - 33 Edificio Siglo XXI. P3</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217300220</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>5</td>
+                <td>7</td>
+                <td>7</td>
+                <td>7</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">26</strong></td>
+                <td>26</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips salud sura sao paulo" data-ceco="228400613" data-dir="cr43a#18 sur 135 local 325 salud sura sao paulo">
+                <td style="color: #94a3b8; font-weight: 600;">55</td>
+                <td><strong>IPS Salud Sura Sao Paulo</strong><div style="font-size: 0.75rem; color: #64748b;">Cr43a#18 sur 135 local 325 salud sura sao paulo</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400613</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>8</td>
+                <td>10</td>
+                <td>7</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">25</strong></td>
+                <td>25</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede de encuentro rionegro" data-ceco="182121013" data-dir="cll 43 av galan # 54 -139 ofic 1 local 212 c.ccial san nicolas">
+                <td style="color: #94a3b8; font-weight: 600;">56</td>
+                <td><strong>Sede de encuentro Rionegro</strong><div style="font-size: 0.75rem; color: #64748b;">Cll 43 Av Galan # 54 -139 Ofic 1 Local 212 C.CCIAL SAN NICOLAS</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182121013</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>20</td>
+                <td>—</td>
+                <td>—</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">25</strong></td>
+                <td>0</td>
+                <td>25</td>
+              </tr>
+            
+              <tr data-sede="seguros armenia (sede de encuentro)" data-ceco="182125001" data-dir="av. bolívar 12n-39 - olga molina - 3186251151">
+                <td style="color: #94a3b8; font-weight: 600;">57</td>
+                <td><strong>Seguros Armenia (Sede de encuentro)</strong><div style="font-size: 0.75rem; color: #64748b;">Av. Bolívar 12N-39 - Olga Molina - 3186251151</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182125001</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>15</td>
+                <td>—</td>
+                <td>10</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">25</strong></td>
+                <td>10</td>
+                <td>15</td>
+              </tr>
+            
+              <tr data-sede="ips básica molinos" data-ceco="228400637" data-dir="calle 30a # 82 a 26 centro comercial molinos tan amables el papel higienico y las toallas de manos se deben entregar en urgencias lo otro en el piso 9">
+                <td style="color: #94a3b8; font-weight: 600;">58</td>
+                <td><strong>IPS Básica Molinos</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 30A # 82 A 26 Centro Comercial Molinos Tan amables el papel higienico y las toallas de manos se deben entregar en urgencias lo otro en el piso 9</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400637</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>6</td>
+                <td>6</td>
+                <td>6</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">24</strong></td>
+                <td>24</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips pac molinos" data-ceco="228400862" data-dir="calle 30a # 82 a 26 centro comercial molinos an amables el pedido de papel higienico y las toallas de mano entregar en el piso 1 de urgencias">
+                <td style="color: #94a3b8; font-weight: 600;">59</td>
+                <td><strong>IPS PAC Molinos</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 30A # 82 A 26 Centro Comercial Molinos an amables el pedido de papel higienico y las toallas de mano entregar en el piso 1 de urgencias</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400862</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>6</td>
+                <td>6</td>
+                <td>6</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">24</strong></td>
+                <td>24</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="bodega grua industriales" data-ceco="509001029" data-dir="cra 48 # 26-50">
+                <td style="color: #94a3b8; font-weight: 600;">60</td>
+                <td><strong>Bodega Grua Industriales</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 48 # 26-50</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">509001029</td>
+                <td style="font-size: 0.8rem; color: #475569;">Operaciones Generales</td>
+                <td>5</td>
+                <td>5</td>
+                <td>4</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">24</strong></td>
+                <td>14</td>
+                <td>10</td>
+              </tr>
+            
+              <tr data-sede="eps rionegro" data-ceco="217003210" data-dir="calle 43 # 54 - 139 av gala cc san nicolas l 211  tel  5624130">
+                <td style="color: #94a3b8; font-weight: 600;">61</td>
+                <td><strong>EPS Rionegro</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 43 # 54 - 139 Av Gala CC San Nicolas L 211  Tel  5624130</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217003210</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>5</td>
+                <td>4</td>
+                <td>10</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">24</strong></td>
+                <td>24</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="central de especialistas la flora" data-ceco="228400728" data-dir="calle 38 norte # 4n - 102">
+                <td style="color: #94a3b8; font-weight: 600;">62</td>
+                <td><strong>Central de Especialistas La Flora</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 38 Norte # 4N - 102</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400728</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>3</td>
+                <td>8</td>
+                <td>6</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">23</strong></td>
+                <td>23</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips sao paulo virtual" data-ceco="228400678" data-dir="carrera 43 a # 18 sur 135 centro comercial sao paulo piso 5">
+                <td style="color: #94a3b8; font-weight: 600;">63</td>
+                <td><strong>IPS Sao Paulo Virtual</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 43 A # 18 sur 135 Centro Comercial Sao Paulo piso 5</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400678</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>7</td>
+                <td>5</td>
+                <td>6</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">23</strong></td>
+                <td>23</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="emergencias medicas salud en casa" data-ceco="228400872" data-dir="contacto: yenifer gómez
+tel: 3185714500
+sede: salud en casa industriales
+dirección: calle 26 # 45-106
+ciudad medellín.">
+                <td style="color: #94a3b8; font-weight: 600;">64</td>
+                <td><strong>Emergencias Medicas Salud en Casa</strong><div style="font-size: 0.75rem; color: #64748b;">Contacto: Yenifer Gómez
+Tel: 3185714500
+Sede: Salud en casa industriales
+Dirección: Calle 26 # 45-106
+Ciudad Medellín.</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400872</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>5</td>
+                <td>8</td>
+                <td>10</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">23</strong></td>
+                <td>23</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips san diego especializada" data-ceco="228400662" data-dir="carrera 43 #30 - 28 cc san diego">
+                <td style="color: #94a3b8; font-weight: 600;">65</td>
+                <td><strong>IPS San Diego Especializada</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 43 #30 - 28 CC San Diego</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400662</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>5</td>
+                <td>5</td>
+                <td>12</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">22</strong></td>
+                <td>22</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="urgencias molinos" data-ceco="228400638" data-dir="calle 30a # 82 a 26 centro comercial molinos tan amables el papel higienico y las toallas se entregan en el pimer piso  urgencias">
+                <td style="color: #94a3b8; font-weight: 600;">66</td>
+                <td><strong>Urgencias Molinos</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 30A # 82 A 26 Centro Comercial Molinos tan amables el papel higienico y las toallas se entregan en el pimer piso  urgencias</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400638</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>10</td>
+                <td>—</td>
+                <td>6</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">22</strong></td>
+                <td>22</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura tequendama calle quinta c" data-ceco="288602012" data-dir="calle 5c # 41-25">
+                <td style="color: #94a3b8; font-weight: 600;">67</td>
+                <td><strong>Ay Dx Sura Tequendama Calle Quinta C</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 5C # 41-25</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602012</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>6</td>
+                <td>4</td>
+                <td>7</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">21</strong></td>
+                <td>21</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa molinos ppr" data-ceco="228400369" data-dir="calle 30a # 82a-26 ips sura los molinos tan amables el papel higienico y las toallas la entrega en el primer piso urgencias">
+                <td style="color: #94a3b8; font-weight: 600;">68</td>
+                <td><strong>Salud en Casa Molinos PPR</strong><div style="font-size: 0.75rem; color: #64748b;">calle 30a # 82a-26 IPS Sura Los Molinos TAN AMABLES EL PAPEL HIGIENICO Y LAS TOALLAS LA ENTREGA EN EL PRIMER PISO URGENCIAS</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400369</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">20</strong></td>
+                <td>20</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud sura city medica rionegro" data-ceco="228400651" data-dir="carrera 55a n.35-227 local 135 torre 1 piso 1 y 2">
+                <td style="color: #94a3b8; font-weight: 600;">69</td>
+                <td><strong>Salud Sura City Medica Rionegro</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 55A N.35-227 Local 135 Torre 1 piso 1 y 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400651</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>6</td>
+                <td>6</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">20</strong></td>
+                <td>20</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="asistencia autos calle 13" data-ceco="509001030" data-dir="cl 13 47 61">
+                <td style="color: #94a3b8; font-weight: 600;">70</td>
+                <td><strong>Asistencia Autos Calle 13</strong><div style="font-size: 0.75rem; color: #64748b;">CL 13 47 61</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">509001030</td>
+                <td style="font-size: 0.8rem; color: #475569;">Operaciones Generales</td>
+                <td>7</td>
+                <td>5</td>
+                <td>4</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">20</strong></td>
+                <td>20</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede encuentro av chile" data-ceco="182124003" data-dir="av chile cll 72 # 8- 24 piso 3">
+                <td style="color: #94a3b8; font-weight: 600;">71</td>
+                <td><strong>Sede Encuentro Av Chile</strong><div style="font-size: 0.75rem; color: #64748b;">Av Chile Cll 72 # 8- 24 Piso 3</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182124003</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>2</td>
+                <td>—</td>
+                <td>8</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">20</strong></td>
+                <td>20</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="seguros santa monica_sucursal mixta limonar" data-ceco="182123003" data-dir="calle 35n 6a bis 100 norte - rossana lara - 3206888473">
+                <td style="color: #94a3b8; font-weight: 600;">72</td>
+                <td><strong>Seguros Santa Monica_Sucursal Mixta Limonar</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 35N 6A BIS 100 Norte - Rossana Lara - 3206888473</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182123003</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>8</td>
+                <td>12</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">20</strong></td>
+                <td>0</td>
+                <td>20</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura chipichape" data-ceco="288602052" data-dir="av 6 a # 35n - 64 segundo piso.  imagenes dx">
+                <td style="color: #94a3b8; font-weight: 600;">73</td>
+                <td><strong>Ay Dx Sura Chipichape</strong><div style="font-size: 0.75rem; color: #64748b;">Av 6 A # 35N - 64 Segundo Piso.  Imagenes Dx</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602052</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>6</td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">19</strong></td>
+                <td>19</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="quirofano sura industriales" data-ceco="228400615" data-dir="cr 48# 26 50">
+                <td style="color: #94a3b8; font-weight: 600;">74</td>
+                <td><strong>Quirofano Sura Industriales</strong><div style="font-size: 0.75rem; color: #64748b;">cr 48# 26 50</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400615</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>5</td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">18</strong></td>
+                <td>18</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ciencias omicas p4" data-ceco="288601010" data-dir="calle 27 # 45 - 59 centro de rehabilitación piso 4">
+                <td style="color: #94a3b8; font-weight: 600;">75</td>
+                <td><strong>Ciencias Omicas P4</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 27 # 45 - 59 Centro de Rehabilitación PISO 4</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601010</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>7</td>
+                <td>5</td>
+                <td>1</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">18</strong></td>
+                <td>18</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="op autos cali (centenario)" data-ceco="100508009" data-dir="avenida 2 norte # 3n - 20 auto sura centenario piso 2">
+                <td style="color: #94a3b8; font-weight: 600;">76</td>
+                <td><strong>Op Autos Cali (Centenario)</strong><div style="font-size: 0.75rem; color: #64748b;">Avenida 2 NORTE # 3N - 20 AUTO SURA CENTENARIO Piso 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">100508009</td>
+                <td style="font-size: 0.8rem; color: #475569;">Seguros Generales</td>
+                <td>5</td>
+                <td>5</td>
+                <td>5</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">18</strong></td>
+                <td>18</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede de encuentro calle 137" data-ceco="182124009" data-dir="av 19 n. 137-21">
+                <td style="color: #94a3b8; font-weight: 600;">77</td>
+                <td><strong>Sede de encuentro calle 137</strong><div style="font-size: 0.75rem; color: #64748b;">AV 19 N. 137-21</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182124009</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td>18</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">18</strong></td>
+                <td>0</td>
+                <td>18</td>
+              </tr>
+            
+              <tr data-sede="sede encuentro holguines tradecenter" data-ceco="182125005" data-dir="cr 100 11-60 local 250 c.c holguines trade center">
+                <td style="color: #94a3b8; font-weight: 600;">78</td>
+                <td><strong>Sede encuentro Holguines tradecenter</strong><div style="font-size: 0.75rem; color: #64748b;">Cr 100 11-60 local 250 C.C Holguines Trade Center</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182125005</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>6</td>
+                <td>3</td>
+                <td>5</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">18</strong></td>
+                <td>0</td>
+                <td>18</td>
+              </tr>
+            
+              <tr data-sede="ips salud en casa barranquilla" data-ceco="228400906" data-dir="carrera 49c # 79 150, ronald avellaneda 3188818955">
+                <td style="color: #94a3b8; font-weight: 600;">79</td>
+                <td><strong>IPS Salud en Casa Barranquilla</strong><div style="font-size: 0.75rem; color: #64748b;">CARRERA 49C # 79 150, RONALD AVELLANEDA 3188818955</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400906</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>4</td>
+                <td>12</td>
+                <td>2</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">18</strong></td>
+                <td>18</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips bucaramanga" data-ceco="228400805" data-dir="calle 52 no. 29-123">
+                <td style="color: #94a3b8; font-weight: 600;">80</td>
+                <td><strong>IPS Bucaramanga</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 52 No. 29-123</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400805</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">17</strong></td>
+                <td>17</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="pac santa barbara" data-ceco="228400803" data-dir="carrera 19 123-52">
+                <td style="color: #94a3b8; font-weight: 600;">81</td>
+                <td><strong>PAC Santa Barbara</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 19 123-52</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400803</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>6</td>
+                <td>5</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">17</strong></td>
+                <td>17</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura belen" data-ceco="288601088" data-dir="carrera 81 no. 30a-99  bloque a">
+                <td style="color: #94a3b8; font-weight: 600;">82</td>
+                <td><strong>Ay Dx Sura Belen</strong><div style="font-size: 0.75rem; color: #64748b;">carrera 81 No. 30a-99  bloque A</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601088</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>4</td>
+                <td>6</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">17</strong></td>
+                <td>17</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm sura molinos" data-ceco="288601054" data-dir="cra 82 c n° 30a-150 torre medica  piso 9 almacén - cc los molinos.">
+                <td style="color: #94a3b8; font-weight: 600;">83</td>
+                <td><strong>PTM Sura Molinos</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 82 C N° 30A-150 Torre medica  Piso 9 Almacén - CC Los Molinos.</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601054</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>5</td>
+                <td>5</td>
+                <td>4</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">17</strong></td>
+                <td>17</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="cem bucaramanga" data-ceco="182122005" data-dir="cra 27 # 36-14 piso 7">
+                <td style="color: #94a3b8; font-weight: 600;">84</td>
+                <td><strong>CEM Bucaramanga</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 27 # 36-14 piso 7</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182122005</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>5</td>
+                <td>—</td>
+                <td>6</td>
+                <td>6</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">17</strong></td>
+                <td>17</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips altos de prado" data-ceco="228400901" data-dir="cra 50 # 79 - 179">
+                <td style="color: #94a3b8; font-weight: 600;">85</td>
+                <td><strong>IPS Altos de Prado</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 50 # 79 - 179</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400901</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>5</td>
+                <td>4</td>
+                <td>3</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">16</strong></td>
+                <td>16</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura la 49 administración" data-ceco="288603011" data-dir="avenida caracas #49-83 local 2">
+                <td style="color: #94a3b8; font-weight: 600;">86</td>
+                <td><strong>Ay Dx Sura La 49 Administración</strong><div style="font-size: 0.75rem; color: #64748b;">Avenida Caracas #49-83 Local 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288603011</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>4</td>
+                <td>5</td>
+                <td>5</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">16</strong></td>
+                <td>16</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura tranvia plaza" data-ceco="288601126" data-dir="calle 48 # 40 -14 local 0118, centro comercial tranvía plaza">
+                <td style="color: #94a3b8; font-weight: 600;">87</td>
+                <td><strong>Ay Dx Sura Tranvia Plaza</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 48 # 40 -14 local 0118, centro comercial tranvía plaza</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601126</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>—</td>
+                <td>8</td>
+                <td>3</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">16</strong></td>
+                <td>16</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura viva barranquilla" data-ceco="288604115" data-dir="carrera 51b # 87-50, piso 3, local 337">
+                <td style="color: #94a3b8; font-weight: 600;">88</td>
+                <td><strong>Ay Dx Sura Viva Barranquilla</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 51B # 87-50, piso 3, local 337</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604115</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>5</td>
+                <td>5</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">16</strong></td>
+                <td>16</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="op autos armenia" data-ceco="100508013" data-dir="cr 14 9 norte 16, cc mocawa plaza p 2 lc 201">
+                <td style="color: #94a3b8; font-weight: 600;">89</td>
+                <td><strong>Op Autos Armenia</strong><div style="font-size: 0.75rem; color: #64748b;">CR 14 9 norte 16, CC Mocawa Plaza P 2 LC 201</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">100508013</td>
+                <td style="font-size: 0.8rem; color: #475569;">Seguros Generales</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">16</strong></td>
+                <td>16</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="op autos manizales" data-ceco="100508014" data-dir="cra 23 # 64b - 33 edificio siglo xxi. p3">
+                <td style="color: #94a3b8; font-weight: 600;">90</td>
+                <td><strong>Op autos Manizales</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 23 # 64B - 33 Edificio Siglo XXI. P3</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">100508014</td>
+                <td style="font-size: 0.8rem; color: #475569;">Seguros Generales</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">16</strong></td>
+                <td>16</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="op autos pereira" data-ceco="100508011" data-dir="carrera 16 # 36 - 98 bodegas textiles omnes barrio el progreso en dosquebradas risaralda bodega de sodexo">
+                <td style="color: #94a3b8; font-weight: 600;">91</td>
+                <td><strong>Op Autos Pereira</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 16 # 36 - 98 Bodegas textiles Omnes Barrio el progreso en dosquebradas risaralda bodega de sodexo</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">100508011</td>
+                <td style="font-size: 0.8rem; color: #475569;">Seguros Generales</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">16</strong></td>
+                <td>16</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede de encuentro sucursal neiva" data-ceco="182124008" data-dir="calle 46 # 16-18 piso 2 local 214 y 214a centro de encuentro cc san juan plaza neiva">
+                <td style="color: #94a3b8; font-weight: 600;">92</td>
+                <td><strong>Sede de encuentro Sucursal Neiva</strong><div style="font-size: 0.75rem; color: #64748b;">CALLE 46 # 16-18 Piso 2 local 214 y 214A Centro de encuentro CC San Juan Plaza Neiva</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182124008</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>1</td>
+                <td>3</td>
+                <td>5</td>
+                <td>7</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">16</strong></td>
+                <td>0</td>
+                <td>16</td>
+              </tr>
+            
+              <tr data-sede="ips sura urgencias sur cordialidad" data-ceco="228400918" data-dir="calle 47 #18-70">
+                <td style="color: #94a3b8; font-weight: 600;">93</td>
+                <td><strong>IPS Sura Urgencias Sur Cordialidad</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 47 #18-70</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400918</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>3</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">15</strong></td>
+                <td>15</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="urgencias las vegas" data-ceco="228400648" data-dir="calle 2 sur # 46-55">
+                <td style="color: #94a3b8; font-weight: 600;">94</td>
+                <td><strong>Urgencias las Vegas</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 2 Sur # 46-55</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400648</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>4</td>
+                <td>6</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">15</strong></td>
+                <td>15</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx mayorca" data-ceco="288601152" data-dir="cc mayorca etapa 1. local 1151.">
+                <td style="color: #94a3b8; font-weight: 600;">95</td>
+                <td><strong>Ay Dx Mayorca</strong><div style="font-size: 0.75rem; color: #64748b;">CC MAYORCA Etapa 1. Local 1151.</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601152</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>4</td>
+                <td>4</td>
+                <td>3</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">15</strong></td>
+                <td>15</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="imágenes santa ana" data-ceco="288601068" data-dir="calle 14 #43b-146 hospital infantil santa ana">
+                <td style="color: #94a3b8; font-weight: 600;">96</td>
+                <td><strong>Imágenes Santa Ana</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 14 #43B-146 Hospital Infantil Santa Ana</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601068</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">15</strong></td>
+                <td>15</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm comfama bello la 49" data-ceco="288601044" data-dir="carrera 49 #46-57 piso 2">
+                <td style="color: #94a3b8; font-weight: 600;">97</td>
+                <td><strong>PTM Comfama Bello La 49</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 49 #46-57 Piso 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601044</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>5</td>
+                <td>3</td>
+                <td>3</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">15</strong></td>
+                <td>15</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="cartagena sede encuentro" data-ceco="182122011" data-dir="cll 30 # 18a - 62 pie del cerro">
+                <td style="color: #94a3b8; font-weight: 600;">98</td>
+                <td><strong>Cartagena Sede Encuentro</strong><div style="font-size: 0.75rem; color: #64748b;">Cll 30 # 18A - 62 Pie del Cerro</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182122011</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>12</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">15</strong></td>
+                <td>2</td>
+                <td>13</td>
+              </tr>
+            
+              <tr data-sede="ay dx salud sura norte" data-ceco="288603110" data-dir="calle 98 # 19a-58 piso 1">
+                <td style="color: #94a3b8; font-weight: 600;">99</td>
+                <td><strong>Ay Dx Salud Sura Norte</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 98 # 19a-58 piso 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288603110</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>4</td>
+                <td>4</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">14</strong></td>
+                <td>14</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura ips vivir norte" data-ceco="288602071" data-dir="cc ideo calle 62# 1n-80 local 246 segundo piso">
+                <td style="color: #94a3b8; font-weight: 600;">100</td>
+                <td><strong>Ay Dx Sura IPS Vivir Norte</strong><div style="font-size: 0.75rem; color: #64748b;">CC IDEO CALLE 62# 1N-80 LOCAL 246 SEGUNDO PISO</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602071</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">14</strong></td>
+                <td>14</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="odontologia salud en casa" data-ceco="228400950" data-dir="contacto: yenifer gómez
+tel: 3185714500
+sede: salud en casa industriales
+dirección: calle 26 # 45-106
+ciudad medellín.">
+                <td style="color: #94a3b8; font-weight: 600;">101</td>
+                <td><strong>Odontologia Salud en Casa</strong><div style="font-size: 0.75rem; color: #64748b;">Contacto: Yenifer Gómez
+Tel: 3185714500
+Sede: Salud en casa industriales
+Dirección: Calle 26 # 45-106
+Ciudad Medellín.</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400950</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>4</td>
+                <td>5</td>
+                <td>5</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">14</strong></td>
+                <td>14</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips san diego cuidado y vida" data-ceco="228400370" data-dir="carrera 43 #30 - 28 cc san diego">
+                <td style="color: #94a3b8; font-weight: 600;">102</td>
+                <td><strong>IPS San Diego Cuidado y Vida</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 43 #30 - 28 CC San Diego</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400370</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>2</td>
+                <td>6</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">13</strong></td>
+                <td>13</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips sura cucuta" data-ceco="228400920" data-dir="avenida gran colombia # 9e-120 quinta oriental">
+                <td style="color: #94a3b8; font-weight: 600;">103</td>
+                <td><strong>IPS Sura Cucuta</strong><div style="font-size: 0.75rem; color: #64748b;">Avenida Gran Colombia # 9e-120 quinta oriental</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400920</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>6</td>
+                <td>5</td>
+                <td>—</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">13</strong></td>
+                <td>13</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips urgencias altos de prado" data-ceco="228400908" data-dir="carrera 49c #80-176">
+                <td style="color: #94a3b8; font-weight: 600;">104</td>
+                <td><strong>IPS Urgencias Altos de Prado</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 49C #80-176</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400908</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>3</td>
+                <td>3</td>
+                <td>4</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">13</strong></td>
+                <td>13</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx bello piso 6" data-ceco="288601115" data-dir="diagonal 50 # 38-20 piso 6 edificio tierragro niquia">
+                <td style="color: #94a3b8; font-weight: 600;">105</td>
+                <td><strong>Ay Dx Bello Piso 6</strong><div style="font-size: 0.75rem; color: #64748b;">Diagonal 50 # 38-20 piso 6 Edificio tierragro niquia</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601115</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">13</strong></td>
+                <td>13</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx ciudad del rio piso 9" data-ceco="288601006" data-dir="cra. 48 #19a - 40 torre medica clofan piso 9">
+                <td style="color: #94a3b8; font-weight: 600;">106</td>
+                <td><strong>Ay Dx Ciudad del Rio Piso 9</strong><div style="font-size: 0.75rem; color: #64748b;">Cra. 48 #19A - 40 Torre medica clofan piso 9</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601006</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>3</td>
+                <td>4</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">13</strong></td>
+                <td>13</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura bucaramanga" data-ceco="288604107" data-dir="calle 48 # 28-39 barrio sotomayor, bucaramanga">
+                <td style="color: #94a3b8; font-weight: 600;">107</td>
+                <td><strong>Ay Dx Sura Bucaramanga</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 48 # 28-39 barrio sotomayor, Bucaramanga</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604107</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>5</td>
+                <td>5</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">13</strong></td>
+                <td>13</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura rionegro centro piso 2" data-ceco="288601008" data-dir="ayudas diagnosticas sura rionegro centro cra 51 numero 51 - 42 piso 2">
+                <td style="color: #94a3b8; font-weight: 600;">108</td>
+                <td><strong>Ay Dx Sura Rionegro Centro Piso 2</strong><div style="font-size: 0.75rem; color: #64748b;">Ayudas Diagnosticas Sura Rionegro Centro Cra 51 numero 51 - 42 piso 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601008</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">13</strong></td>
+                <td>13</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="laboratorio clínica ces" data-ceco="288601110" data-dir="clínica ces prado centro calle 58 #50c-2 laboratorio clinico piso 6">
+                <td style="color: #94a3b8; font-weight: 600;">109</td>
+                <td><strong>Laboratorio Clínica CES</strong><div style="font-size: 0.75rem; color: #64748b;">CLÍNICA CES PRADO CENTRO Calle 58 #50C-2 Laboratorio clinico piso 6</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601110</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>3</td>
+                <td>4</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">13</strong></td>
+                <td>13</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud sura río lili" data-ceco="228400752" data-dir="carrera 103 # 13a - 23">
+                <td style="color: #94a3b8; font-weight: 600;">110</td>
+                <td><strong>Salud Sura Río Lili</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 103 # 13A - 23</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400752</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">12</strong></td>
+                <td>12</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx ciudad del rio piso 1" data-ceco="288601089" data-dir="cra. 48 #19a - 40 torre medica clofan piso 1">
+                <td style="color: #94a3b8; font-weight: 600;">111</td>
+                <td><strong>Ay Dx Ciudad del Rio Piso 1</strong><div style="font-size: 0.75rem; color: #64748b;">Cra. 48 #19A - 40 Torre medica clofan piso 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601089</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>4</td>
+                <td>2</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">12</strong></td>
+                <td>12</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura city medica rionegro" data-ceco="288601007" data-dir="carrera 55 a #35-227 edif city medica rionegro, torre 1 piso 5">
+                <td style="color: #94a3b8; font-weight: 600;">112</td>
+                <td><strong>Ay Dx Sura City Medica Rionegro</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 55 a #35-227 Edif City Medica Rionegro, Torre 1 Piso 5</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601007</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>4</td>
+                <td>2</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">12</strong></td>
+                <td>12</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm comfama san ignacio" data-ceco="288601045" data-dir="calle 48 # 43 87 pisos 2 laboratorio">
+                <td style="color: #94a3b8; font-weight: 600;">113</td>
+                <td><strong>PTM Comfama San Ignacio</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 48 # 43 87 pisos 2 laboratorio</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601045</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>3</td>
+                <td>4</td>
+                <td>3</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">12</strong></td>
+                <td>12</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips sura viva envigado" data-ceco="228400956" data-dir="cra. 48 #32b sur-139 centro comercial viva envigado local 9825 sotano 2">
+                <td style="color: #94a3b8; font-weight: 600;">114</td>
+                <td><strong>IPS Sura Viva Envigado</strong><div style="font-size: 0.75rem; color: #64748b;">Cra. 48 #32B Sur-139 Centro comercial Viva envigado local 9825 Sotano 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400956</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>3</td>
+                <td>5</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">11</strong></td>
+                <td>11</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="laboratorio genoves (clínico)" data-ceco="288604130" data-dir="cra 24 a no. 1 a -104. pto colombia">
+                <td style="color: #94a3b8; font-weight: 600;">115</td>
+                <td><strong>Laboratorio Genoves (Clínico)</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 24 A No. 1 A -104. PTO COLOMBIA</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604130</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>3</td>
+                <td>3</td>
+                <td>2</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">11</strong></td>
+                <td>11</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="plataforma cartagena" data-ceco="216900520" data-dir="cll 30 # 17-109 local 1-20, centro comercial portal de san felipe">
+                <td style="color: #94a3b8; font-weight: 600;">116</td>
+                <td><strong>Plataforma Cartagena</strong><div style="font-size: 0.75rem; color: #64748b;">CLL 30 # 17-109 local 1-20, centro comercial portal de san Felipe</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">216900520</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">11</strong></td>
+                <td>11</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips sura serena del mar" data-ceco="228400927" data-dir="km8 vía al mar sector serena del mar edificio universidad de los andes local 102">
+                <td style="color: #94a3b8; font-weight: 600;">117</td>
+                <td><strong>IPS Sura Serena del Mar</strong><div style="font-size: 0.75rem; color: #64748b;">KM8 VÍA AL MAR SECTOR SERENA DEL MAR EDIFICIO UNIVERSIDAD DE LOS ANDES LOCAL 102</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400927</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>3</td>
+                <td>3</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">10</strong></td>
+                <td>10</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista mayorca" data-ceco="228400672" data-dir="calle 51 sur # 48-57 local 4021 cc mayorca, etapa nueva piso 4 plazoleta de eventos">
+                <td style="color: #94a3b8; font-weight: 600;">118</td>
+                <td><strong>Punto de Vista Mayorca</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 51 Sur # 48-57 Local 4021 CC Mayorca, Etapa nueva piso 4 plazoleta de eventos</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400672</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>3</td>
+                <td>2</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">10</strong></td>
+                <td>10</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="laboratorio genoves patología" data-ceco="288604131" data-dir="cra 24 a no. 1 a -104. pto colombia">
+                <td style="color: #94a3b8; font-weight: 600;">119</td>
+                <td><strong>Laboratorio Genoves Patología</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 24 A No. 1 A -104. PTO COLOMBIA</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604131</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>2</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">10</strong></td>
+                <td>10</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm ay dx portal de genoves" data-ceco="288604132" data-dir="dirección: cra 24 # 1a - 104 urb portal del genovés ii, piso 8">
+                <td style="color: #94a3b8; font-weight: 600;">120</td>
+                <td><strong>PTM Ay Dx Portal de Genoves</strong><div style="font-size: 0.75rem; color: #64748b;">Dirección: CRA 24 # 1A - 104 URB PORTAL DEL GENOVÉS II, piso 8</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604132</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">10</strong></td>
+                <td>10</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm ips flora" data-ceco="288602054" data-dir="calle 38 norte #4n-52, barrio la flora cali">
+                <td style="color: #94a3b8; font-weight: 600;">121</td>
+                <td><strong>PTM IPS Flora</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 38 norte #4N-52, barrio la Flora Cali</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602054</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>—</td>
+                <td>4</td>
+                <td>2</td>
+                <td>4</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">10</strong></td>
+                <td>10</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm pac santa barbara" data-ceco="288603031" data-dir="av cra 19 n° 123-52">
+                <td style="color: #94a3b8; font-weight: 600;">122</td>
+                <td><strong>PTM PAC Santa Barbara</strong><div style="font-size: 0.75rem; color: #64748b;">Av Cra 19 N° 123-52</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288603031</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>4</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">10</strong></td>
+                <td>10</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa city medica rionegro" data-ceco="228400876" data-dir="contacto de entrega: tamy andrea velez hernandez - manuela ríos valencia, cel: 3014482677- 3117743603, direccion de entrega: carrera 55ª # 35 – 227 city medica torre 1 piso 4 rionegro – antioquia">
+                <td style="color: #94a3b8; font-weight: 600;">123</td>
+                <td><strong>Salud en Casa City Medica Rionegro</strong><div style="font-size: 0.75rem; color: #64748b;">Contacto de entrega: Tamy Andrea Velez Hernandez - Manuela Ríos Valencia, Cel: 3014482677- 3117743603, Direccion de entrega: Carrera 55ª # 35 – 227 City Medica torre 1 piso 4 Rionegro – Antioquia</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400876</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>8</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">10</strong></td>
+                <td>10</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips sura tequendama" data-ceco="228400723" data-dir="calle 5 #39-173 diana victoria cardona 3168446154">
+                <td style="color: #94a3b8; font-weight: 600;">124</td>
+                <td><strong>IPS Sura Tequendama</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 5 #39-173 Diana victoria Cardona 3168446154</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400723</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>10</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">10</strong></td>
+                <td>10</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="atel occidente (salud en casa)" data-ceco="228400720" data-dir="cra 50 # 12a - 90 b santa anita - cali">
+                <td style="color: #94a3b8; font-weight: 600;">125</td>
+                <td><strong>Atel Occidente (Salud en Casa)</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 50 # 12A - 90 B Santa Anita - Cali</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400720</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>2</td>
+                <td>3</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">9</strong></td>
+                <td>9</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="centro de rehabilitacion pasoancho" data-ceco="228400958" data-dir="cra 50 # 12a - 90 b santa anita - cali">
+                <td style="color: #94a3b8; font-weight: 600;">126</td>
+                <td><strong>Centro de Rehabilitacion Pasoancho</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 50 # 12A - 90 B Santa Anita - Cali</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400958</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>2</td>
+                <td>3</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">9</strong></td>
+                <td>9</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="eps armenia" data-ceco="217300250" data-dir="cr 14 9 norte 16, cc mocawa plaza p 2 lc 201">
+                <td style="color: #94a3b8; font-weight: 600;">127</td>
+                <td><strong>Eps Armenia</strong><div style="font-size: 0.75rem; color: #64748b;">CR 14 9 norte 16, CC Mocawa Plaza P 2 LC 201</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217300250</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>—</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">9</strong></td>
+                <td>9</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="puerto seco" data-ceco="509001017" data-dir="calle 8b # 65-191,  piso 6. puerto seco dos cnm – centro nacional de monitoreo">
+                <td style="color: #94a3b8; font-weight: 600;">128</td>
+                <td><strong>Puerto Seco</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 8B # 65-191,  piso 6. Puerto seco dos CNM – Centro Nacional de Monitoreo</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">509001017</td>
+                <td style="font-size: 0.8rem; color: #475569;">Operaciones Generales</td>
+                <td>3</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">9</strong></td>
+                <td>9</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="postventa las vegas" data-ceco="509050003" data-dir="cr 48 # 17-109  - olga molina - 3186251151">
+                <td style="color: #94a3b8; font-weight: 600;">129</td>
+                <td><strong>Postventa las Vegas</strong><div style="font-size: 0.75rem; color: #64748b;">Cr 48 # 17-109  - Olga Molina - 3186251151</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">509050003</td>
+                <td style="font-size: 0.8rem; color: #475569;">Operaciones Generales</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">9</strong></td>
+                <td>9</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista bello fabricato" data-ceco="228400635" data-dir="calle 40 #50-205 centro comercial ciuda fabricato piso 4, local 4260">
+                <td style="color: #94a3b8; font-weight: 600;">130</td>
+                <td><strong>Punto de Vista Bello Fabricato</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 40 #50-205 Centro comercial ciuda Fabricato piso 4, local 4260</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400635</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>3</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista poblado" data-ceco="228400686" data-dir="cra. 43a #6s-15 centro comercial oviedo local 1158">
+                <td style="color: #94a3b8; font-weight: 600;">131</td>
+                <td><strong>Punto de Vista Poblado</strong><div style="font-size: 0.75rem; color: #64748b;">Cra. 43A #6s-15 Centro Comercial oviedo local 1158</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400686</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>4</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa molinos cher" data-ceco="228400618" data-dir="calle 30a # 82a-26 ips sura los molinos tan amables el papel higienico y las toallas se entregan en el piso 1 urgencias">
+                <td style="color: #94a3b8; font-weight: 600;">132</td>
+                <td><strong>Salud en Casa Molinos CHER</strong><div style="font-size: 0.75rem; color: #64748b;">calle 30a # 82a-26 IPS Sura Los Molinos Tan amables el papel higienico y las toallas se entregan en el piso 1 urgencias</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400618</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud sura bucaramanga andes" data-ceco="228400911" data-dir="carrera 35 # 53-17">
+                <td style="color: #94a3b8; font-weight: 600;">133</td>
+                <td><strong>Salud Sura Bucaramanga Andes</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 35 # 53-17</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400911</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud sura pereira" data-ceco="228400634" data-dir="cra 18 # 12-35 megacentro pinares torre 3 local 124">
+                <td style="color: #94a3b8; font-weight: 600;">134</td>
+                <td><strong>Salud Sura Pereira</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 18 # 12-35 MEGACENTRO PINARES TORRE 3 LOCAL 124</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400634</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>3</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx altos de prado (toma de muestra)" data-ceco="288604032" data-dir="carrera 50 # 79-179 (toma de muestras)">
+                <td style="color: #94a3b8; font-weight: 600;">135</td>
+                <td><strong>Ay Dx Altos de Prado (Toma de Muestra)</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 50 # 79-179 (Toma de muestras)</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604032</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx olaya" data-ceco="288603033" data-dir="carrera 14 numero 26a-79 sur piso 1">
+                <td style="color: #94a3b8; font-weight: 600;">136</td>
+                <td><strong>Ay Dx Olaya</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 14 Numero 26A-79 Sur Piso 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288603033</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>—</td>
+                <td>4</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="bodega everfit" data-ceco="100118000" data-dir="transv 78 65 233 bg everfit">
+                <td style="color: #94a3b8; font-weight: 600;">137</td>
+                <td><strong>Bodega Everfit</strong><div style="font-size: 0.75rem; color: #64748b;">Transv 78 65 233 BG Everfit</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">100118000</td>
+                <td style="font-size: 0.8rem; color: #475569;">Seguros Generales</td>
+                <td>1</td>
+                <td>3</td>
+                <td>3</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="cgr cartagena" data-ceco="182122007" data-dir="el bosque transv 52 no 28 - 25 edif. movisol  ofic 502 y 503">
+                <td style="color: #94a3b8; font-weight: 600;">138</td>
+                <td><strong>CGR Cartagena</strong><div style="font-size: 0.75rem; color: #64748b;">EL BOSQUE Transv 52 NO 28 - 25 Edif. Movisol  OFIC 502 Y 503</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182122007</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>—</td>
+                <td>3</td>
+                <td>2</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="op autos ibague" data-ceco="100508016" data-dir="avenida ambala # 69-80 local 110 y 111">
+                <td style="color: #94a3b8; font-weight: 600;">139</td>
+                <td><strong>Op Autos Ibague</strong><div style="font-size: 0.75rem; color: #64748b;">Avenida Ambala # 69-80 Local 110 y 111</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">100508016</td>
+                <td style="font-size: 0.8rem; color: #475569;">Seguros Generales</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="plataforma barranquilla" data-ceco="217300510" data-dir="calle 82 no 46-58 local 6 y 7 barrio san vicente">
+                <td style="color: #94a3b8; font-weight: 600;">140</td>
+                <td><strong>Plataforma Barranquilla</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 82 No 46-58 local 6 y 7 BARRIO San Vicente</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217300510</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>2</td>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sucursal cali 2" data-ceco="102393000" data-dir="avenida 2 norte# 3n – 20 / p2">
+                <td style="color: #94a3b8; font-weight: 600;">141</td>
+                <td><strong>Sucursal Cali 2</strong><div style="font-size: 0.75rem; color: #64748b;">Avenida 2 norte# 3n – 20 / P2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">102393000</td>
+                <td style="font-size: 0.8rem; color: #475569;">Seguros Generales</td>
+                <td>—</td>
+                <td>—</td>
+                <td>5</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">8</strong></td>
+                <td>8</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips sura bello" data-ceco="228400606" data-dir="diagonal 50 #38-20, edificio tierragro piso 7">
+                <td style="color: #94a3b8; font-weight: 600;">142</td>
+                <td><strong>IPS Sura Bello</strong><div style="font-size: 0.75rem; color: #64748b;">Diagonal 50 #38-20, Edificio Tierragro Piso 7</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400606</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">7</strong></td>
+                <td>7</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips sura movisol cartagena" data-ceco="228400928" data-dir="transv 54 #28-25 edif movisol ofic 201">
+                <td style="color: #94a3b8; font-weight: 600;">143</td>
+                <td><strong>IPS Sura Movisol Cartagena</strong><div style="font-size: 0.75rem; color: #64748b;">TRANSV 54 #28-25 EDIF MOVISOL OFIC 201</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400928</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">7</strong></td>
+                <td>7</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista molinos" data-ceco="228400639" data-dir="cl. 30a #82a-26, centro comercial los molinos local 4127,">
+                <td style="color: #94a3b8; font-weight: 600;">144</td>
+                <td><strong>Punto de Vista Molinos</strong><div style="font-size: 0.75rem; color: #64748b;">Cl. 30A #82A-26, Centro Comercial los Molinos local 4127,</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400639</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">7</strong></td>
+                <td>7</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista santa barbara" data-ceco="228400824" data-dir="cra 19 # 120-71 local 9  edificio torre banco  falabella">
+                <td style="color: #94a3b8; font-weight: 600;">145</td>
+                <td><strong>Punto de Vista Santa Barbara</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 19 # 120-71 LOCAL 9  EDIFICIO TORRE BANCO  FALABELLA</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400824</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">7</strong></td>
+                <td>7</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura la 30 clínica medellín occidente" data-ceco="288601083" data-dir="clinica medellin occidente-sotano -1  resonancia, cra 65b#30-95">
+                <td style="color: #94a3b8; font-weight: 600;">146</td>
+                <td><strong>Ay Dx Sura La 30 Clínica Medellín Occidente</strong><div style="font-size: 0.75rem; color: #64748b;">Clinica Medellin Occidente-Sotano -1  Resonancia, Cra 65B#30-95</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601083</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">7</strong></td>
+                <td>7</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura portal de prado" data-ceco="288604136" data-dir="calle 53#46-192 local 316-317 barrio abajo. cc portal del prado">
+                <td style="color: #94a3b8; font-weight: 600;">147</td>
+                <td><strong>Ay Dx Sura Portal De Prado</strong><div style="font-size: 0.75rem; color: #64748b;">calle 53#46-192 local 316-317 barrio abajo. cc portal del prado</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604136</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">7</strong></td>
+                <td>7</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista punto clave" data-ceco="228400612" data-dir="cr 48 #27-38 local 159, janeth astrid castro o. cel 3003564477">
+                <td style="color: #94a3b8; font-weight: 600;">148</td>
+                <td><strong>Punto de Vista Punto Clave</strong><div style="font-size: 0.75rem; color: #64748b;">CR 48 #27-38 LOCAL 159, Janeth Astrid Castro O. CEL 3003564477</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400612</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>3</td>
+                <td>4</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">7</strong></td>
+                <td>7</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa vih norte" data-ceco="228400944" data-dir="carrera 49c # 79 150, ronald avellaneda 3188818955">
+                <td style="color: #94a3b8; font-weight: 600;">149</td>
+                <td><strong>Salud en Casa VIH Norte</strong><div style="font-size: 0.75rem; color: #64748b;">CARRERA 49C # 79 150, RONALD AVELLANEDA 3188818955</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400944</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>3</td>
+                <td>2</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">7</strong></td>
+                <td>7</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips san diego bebé canguro" data-ceco="228400659" data-dir="carrera 43 #30 - 28 cc san diego">
+                <td style="color: #94a3b8; font-weight: 600;">150</td>
+                <td><strong>IPS San Diego Bebé Canguro</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 43 #30 - 28 CC San Diego</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400659</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">6</strong></td>
+                <td>6</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista cali norte" data-ceco="228400724" data-dir="av 6a #26n-45 lc.1-">
+                <td style="color: #94a3b8; font-weight: 600;">151</td>
+                <td><strong>Punto de Vista Cali Norte</strong><div style="font-size: 0.75rem; color: #64748b;">Av 6A #26N-45 Lc.1-</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400724</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">6</strong></td>
+                <td>6</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura industriales" data-ceco="288601038" data-dir="cra 48 #26 50 piso 1">
+                <td style="color: #94a3b8; font-weight: 600;">152</td>
+                <td><strong>Ay Dx Sura Industriales</strong><div style="font-size: 0.75rem; color: #64748b;">cra 48 #26 50 piso 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601038</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>3</td>
+                <td>1</td>
+                <td>—</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">6</strong></td>
+                <td>6</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura punto clave" data-ceco="288601005" data-dir="cra 46 #27-81 local 125">
+                <td style="color: #94a3b8; font-weight: 600;">153</td>
+                <td><strong>Ay Dx Sura Punto Clave</strong><div style="font-size: 0.75rem; color: #64748b;">cra 46 #27-81 Local 125</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601005</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>4</td>
+                <td>—</td>
+                <td>—</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">6</strong></td>
+                <td>6</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="gerencia bogota (panorama)" data-ceco="216900410" data-dir="calle 31 # 13 a 51 local 20 panorama">
+                <td style="color: #94a3b8; font-weight: 600;">154</td>
+                <td><strong>Gerencia Bogota (PANORAMA)</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 31 # 13 a 51 Local 20 Panorama</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">216900410</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">6</strong></td>
+                <td>6</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips country" data-ceco="228400801" data-dir="bogota ips sura country
+cra 16a # 84 - 05. cafetin - sodexo
+entregar a nombre de: katherin gutierrez celular 3185975407/ 3112081154">
+                <td style="color: #94a3b8; font-weight: 600;">155</td>
+                <td><strong>IPS Country</strong><div style="font-size: 0.75rem; color: #64748b;">BOGOTA IPS SURA COUNTRY
+Cra 16A # 84 - 05. CAFETIN - SODEXO
+ENTREGAR A NOMBRE DE: KATHERIN GUTIERREZ CELULAR 3185975407/ 3112081154</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400801</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>6</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">6</strong></td>
+                <td>6</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="arl city medica rionegro" data-ceco="228400668" data-dir="carrera 55a # 35-227 torre 1 piso 6">
+                <td style="color: #94a3b8; font-weight: 600;">156</td>
+                <td><strong>ARL City Medica Rionegro</strong><div style="font-size: 0.75rem; color: #64748b;">carrera 55A # 35-227 Torre 1 piso 6</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400668</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>—</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="emergencias medicas camacol" data-ceco="228400872" data-dir="calle 49a # 63 - 55 torre suramericana (almacen via sub estación)">
+                <td style="color: #94a3b8; font-weight: 600;">157</td>
+                <td><strong>Emergencias Medicas Camacol</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 49a # 63 - 55 Torre Suramericana (Almacen via Sub estación)</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400872</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips bello ppr" data-ceco="228400369" data-dir="diagonal 50 #38-20, edificio tierragro piso 7">
+                <td style="color: #94a3b8; font-weight: 600;">158</td>
+                <td><strong>IPS Bello PPR</strong><div style="font-size: 0.75rem; color: #64748b;">Diagonal 50 #38-20, Edificio Tierragro Piso 7</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400369</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips rionegro" data-ceco="228400605" data-dir="carrera 55ª # 35 – 227 piso 6 torre 1">
+                <td style="color: #94a3b8; font-weight: 600;">159</td>
+                <td><strong>IPS Rionegro</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 55ª # 35 – 227 Piso 6 torre 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400605</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>—</td>
+                <td>2</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips rionegro póliza" data-ceco="228400865" data-dir="cra 55 a # 35 -227 local 135 piso 6 torre 1">
+                <td style="color: #94a3b8; font-weight: 600;">160</td>
+                <td><strong>IPS Rionegro Póliza</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 55 a # 35 -227 local 135 piso 6 torre 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400865</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips salud sura usaquen" data-ceco="228400843" data-dir="calle 119a# 7-74">
+                <td style="color: #94a3b8; font-weight: 600;">161</td>
+                <td><strong>IPS Salud Sura Usaquen</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 119A# 7-74</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400843</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>—</td>
+                <td>—</td>
+                <td>3</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista rionegro" data-ceco="228400643" data-dir="calle 43 #54-139 rionegro centro comercial san nicolas local 3313">
+                <td style="color: #94a3b8; font-weight: 600;">162</td>
+                <td><strong>Punto de Vista Rionegro</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 43 #54-139 Rionegro Centro Comercial San Nicolas local 3313</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400643</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>2</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa rionegro emergencias medicas" data-ceco="228400876" data-dir="carrera 55ª # 35 – 227 city medica torre 1 piso 4 rionegro – antioquia">
+                <td style="color: #94a3b8; font-weight: 600;">163</td>
+                <td><strong>Salud en Casa Rionegro Emergencias Medicas</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 55ª # 35 – 227 City Medica torre 1 piso 4 Rionegro – Antioquia</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400876</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>3</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="unidad de calificación (viva envigado)" data-ceco="228400671" data-dir="cra. 48 #32b sur-139 centro comercial viva envigado local 9825 sotano 2">
+                <td style="color: #94a3b8; font-weight: 600;">164</td>
+                <td><strong>Unidad de Calificación (Viva Envigado)</strong><div style="font-size: 0.75rem; color: #64748b;">Cra. 48 #32B Sur-139 Centro comercial Viva envigado local 9825 Sotano 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400671</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx mall del este" data-ceco="288601150" data-dir="direccion crr 25 #3-45 el poblado, mall del este local 9938, sótano 1">
+                <td style="color: #94a3b8; font-weight: 600;">165</td>
+                <td><strong>Ay Dx Mall del Este</strong><div style="font-size: 0.75rem; color: #64748b;">Direccion Crr 25 #3-45 El Poblado, Mall del este local 9938, sótano 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601150</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura la plazuela" data-ceco="288604118" data-dir="cr 30 # 71 - 108 local 17 shopping center la plazuela">
+                <td style="color: #94a3b8; font-weight: 600;">166</td>
+                <td><strong>Ay Dx Sura La Plazuela</strong><div style="font-size: 0.75rem; color: #64748b;">CR 30 # 71 - 108 LOCAL 17 SHOPPING CENTER LA PLAZUELA</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604118</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>2</td>
+                <td>—</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura pereira" data-ceco="288602066" data-dir="cra16bis#8-24, local 402, piso4 edificio oko tower, barrio pinares, pereira">
+                <td style="color: #94a3b8; font-weight: 600;">167</td>
+                <td><strong>Ay Dx Sura Pereira</strong><div style="font-size: 0.75rem; color: #64748b;">cra16bis#8-24, local 402, piso4 edificio oko tower, barrio pinares, Pereira</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602066</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>2</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura rionegro centro piso 1" data-ceco="288601014" data-dir="ayudas diagnosticas sura rionegro centro cra 51 numero 51 - 42 piso 1">
+                <td style="color: #94a3b8; font-weight: 600;">168</td>
+                <td><strong>Ay Dx Sura Rionegro Centro Piso 1</strong><div style="font-size: 0.75rem; color: #64748b;">Ayudas Diagnosticas Sura Rionegro Centro Cra 51 numero 51 - 42 piso 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601014</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura urgencias sur cordialidad" data-ceco="288604203" data-dir="calle 47 # 18-70, 2 urgenicas sur">
+                <td style="color: #94a3b8; font-weight: 600;">169</td>
+                <td><strong>Ay Dx Sura Urgencias Sur Cordialidad</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 47 # 18-70, 2 Urgenicas Sur</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604203</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>—</td>
+                <td>2</td>
+                <td>2</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm sura urgencias altos de prado" data-ceco="288604105" data-dir="cra 49c # 80 - 176">
+                <td style="color: #94a3b8; font-weight: 600;">170</td>
+                <td><strong>PTM Sura Urgencias Altos De Prado</strong><div style="font-size: 0.75rem; color: #64748b;">Cra 49c # 80 - 176</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604105</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="pac voluntarios bello" data-ceco="228400864" data-dir="dirección: diagonal 50 #38-20, edificio tierragro piso 7, milton rojas ó daniela arias, contacto: 3147631127">
+                <td style="color: #94a3b8; font-weight: 600;">171</td>
+                <td><strong>PAC Voluntarios Bello</strong><div style="font-size: 0.75rem; color: #64748b;">Dirección: Diagonal 50 #38-20, Edificio Tierragro Piso 7, Milton Rojas ó Daniela Arias, Contacto: 3147631127</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400864</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>2</td>
+                <td>1</td>
+                <td>2</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>5</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="auditorios autos bucaramanga" data-ceco="182122004" data-dir="">
+                <td style="color: #94a3b8; font-weight: 600;">172</td>
+                <td><strong>Auditorios Autos Bucaramanga</strong><div style="font-size: 0.75rem; color: #64748b;">—</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182122004</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>5</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">5</strong></td>
+                <td>0</td>
+                <td>5</td>
+              </tr>
+            
+              <tr data-sede="arl los molinos" data-ceco="228400668" data-dir="calle 30a # 82a-26 ips sura los molinos">
+                <td style="color: #94a3b8; font-weight: 600;">173</td>
+                <td><strong>ARL Los Molinos</strong><div style="font-size: 0.75rem; color: #64748b;">calle 30a # 82a-26 IPS Sura Los Molinos</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400668</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="atel barranquilla ips altos de prado" data-ceco="228400924" data-dir="cr 50 #79-179">
+                <td style="color: #94a3b8; font-weight: 600;">174</td>
+                <td><strong>ATEL Barranquilla IPS Altos de Prado</strong><div style="font-size: 0.75rem; color: #64748b;">CR 50 #79-179</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400924</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips bello arl" data-ceco="228400668" data-dir="diagonal 50 # 38 20 edificio tierragro piso 7">
+                <td style="color: #94a3b8; font-weight: 600;">175</td>
+                <td><strong>IPS Bello ARL</strong><div style="font-size: 0.75rem; color: #64748b;">DIAGONAL 50 # 38 20 EDIFICIO TIERRAGRO PISO 7</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400668</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips centro rehabilitación altos de prado" data-ceco="228400957" data-dir="cr 49c #80-176">
+                <td style="color: #94a3b8; font-weight: 600;">176</td>
+                <td><strong>IPS Centro Rehabilitación Altos de Prado</strong><div style="font-size: 0.75rem; color: #64748b;">CR 49C #80-176</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400957</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx pasoancho" data-ceco="288602034" data-dir="carrera 50 no 12a - 90">
+                <td style="color: #94a3b8; font-weight: 600;">177</td>
+                <td><strong>Ay Dx Pasoancho</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 50 No 12A - 90</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602034</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx salud sura usaquen" data-ceco="288603095" data-dir="calle 119 a # 7-74 piso 2">
+                <td style="color: #94a3b8; font-weight: 600;">178</td>
+                <td><strong>Ay Dx Salud Sura Usaquen</strong><div style="font-size: 0.75rem; color: #64748b;">calle 119 a # 7-74 piso 2</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288603095</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>—</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura reina isabel" data-ceco="288602053" data-dir="calle 43 #45a-94, primer piso ips reina isabel, barrio tequendama - cali">
+                <td style="color: #94a3b8; font-weight: 600;">179</td>
+                <td><strong>Ay Dx Sura Reina Isabel</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 43 #45A-94, Primer Piso IPS Reina Isabel, Barrio Tequendama - Cali</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602053</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="colsubsidio aventura plaza" data-ceco="288602023" data-dir="crr 100 no 15a -62 - aventura plaza piso 3,">
+                <td style="color: #94a3b8; font-weight: 600;">180</td>
+                <td><strong>Colsubsidio Aventura Plaza</strong><div style="font-size: 0.75rem; color: #64748b;">Crr 100 No 15A -62 - aventura plaza piso 3,</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602023</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>2</td>
+                <td>—</td>
+                <td>—</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm armenia sur" data-ceco="288602062" data-dir="cra 18 59#37 centro comercial san sur">
+                <td style="color: #94a3b8; font-weight: 600;">181</td>
+                <td><strong>PTM Armenia Sur</strong><div style="font-size: 0.75rem; color: #64748b;">CRA 18 59#37 CENTRO COMERCIAL SAN SUR</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602062</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="pac voluntarios tequendama" data-ceco="228400869" data-dir="calle 5 #39-173 diana victoria cardona 3168446154">
+                <td style="color: #94a3b8; font-weight: 600;">182</td>
+                <td><strong>PAC Voluntarios Tequendama</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 5 #39-173 Diana victoria Cardona 3168446154</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400869</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>4</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud sura rio lili" data-ceco="228400752" data-dir="carrera 103 # 13a-23 piso 3 weymar lenis 3218247563">
+                <td style="color: #94a3b8; font-weight: 600;">183</td>
+                <td><strong>Salud Sura Rio Lili</strong><div style="font-size: 0.75rem; color: #64748b;">CARRERA 103 # 13A-23 PISO 3 WEYMAR LENIS 3218247563</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400752</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>4</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">4</strong></td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="punto de vista san diego" data-ceco="228400655" data-dir="carrera 43 #30 - 28 cc san diego">
+                <td style="color: #94a3b8; font-weight: 600;">184</td>
+                <td><strong>Punto de Vista San Diego</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 43 #30 - 28 CC San Diego</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400655</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa rionegro vih" data-ceco="228400372" data-dir="carrera 55ª # 35 – 227 city medica torre 1 piso 4 rionegro – antioquia">
+                <td style="color: #94a3b8; font-weight: 600;">185</td>
+                <td><strong>Salud en Casa Rionegro VIH</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 55ª # 35 – 227 City Medica torre 1 piso 4 Rionegro – Antioquia</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400372</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="unidad de calificación barranquilla" data-ceco="228400926" data-dir="cr 50 #79-179">
+                <td style="color: #94a3b8; font-weight: 600;">186</td>
+                <td><strong>Unidad de Calificación Barranquilla</strong><div style="font-size: 0.75rem; color: #64748b;">CR 50 #79-179</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400926</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura avignon envigado" data-ceco="288601161" data-dir="carrera 27 # 23 sur - 39 piso 2 - local 201 y 202">
+                <td style="color: #94a3b8; font-weight: 600;">187</td>
+                <td><strong>Ay Dx Sura Avignon Envigado</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 27 # 23 sur - 39 piso 2 - Local 201 y 202</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601161</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>1</td>
+                <td>—</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="eps apartado" data-ceco="217300240" data-dir="diagonal 100 # 105 a 53 local 104 mall triniti">
+                <td style="color: #94a3b8; font-weight: 600;">188</td>
+                <td><strong>EPS Apartado</strong><div style="font-size: 0.75rem; color: #64748b;">Diagonal 100 # 105 a 53 local 104 Mall Triniti</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217300240</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sede para el encuentro cucuta" data-ceco="182122008" data-dir="avenida gran colombia #9e-120 lote a3 urbanización quinta oriental piso 1">
+                <td style="color: #94a3b8; font-weight: 600;">189</td>
+                <td><strong>Sede para el encuentro Cucuta</strong><div style="font-size: 0.75rem; color: #64748b;">Avenida Gran Colombia #9E-120 Lote A3 Urbanización Quinta Oriental piso 1</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">182122008</td>
+                <td style="font-size: 0.8rem; color: #475569;">Servicios Generales</td>
+                <td>—</td>
+                <td>2</td>
+                <td>—</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>1</td>
+                <td>2</td>
+              </tr>
+            
+              <tr data-sede="punto de vista unicentro medellín" data-ceco="228400611" data-dir="diagonal 66b #34 a 76 local 091 centro comercial unicentro, janeth astrid castro osorio, cel 3003564477">
+                <td style="color: #94a3b8; font-weight: 600;">190</td>
+                <td><strong>Punto de Vista Unicentro Medellín</strong><div style="font-size: 0.75rem; color: #64748b;">DIAGONAL 66B #34 A 76 LOCAL 091 CENTRO COMERCIAL UNICENTRO, Janeth Astrid Castro Osorio, cel 3003564477</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400611</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>2</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm cartagena norte san felipe" data-ceco="288604137" data-dir="contacto: maria de los angeles castilla baron 
+dirección: calle 30 no. 17-109 locales 138 y 139 centro comercial portal de san felipe
+ciudad: cartagena
+tel: 3023605263 – 3043375581
+horario: 8 am a 3:00 pm de lunes a viernes">
+                <td style="color: #94a3b8; font-weight: 600;">191</td>
+                <td><strong>PTM Cartagena Norte San Felipe</strong><div style="font-size: 0.75rem; color: #64748b;">Contacto: MARIA DE LOS ANGELES CASTILLA BARON 
+Dirección: Calle 30 No. 17-109 Locales 138 y 139 Centro Comercial Portal de San Felipe
+Ciudad: Cartagena
+Tel: 3023605263 – 3043375581
+Horario: 8 am a 3:00 pm de lunes a viernes</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604137</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnosticas</td>
+                <td>1</td>
+                <td>2</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx sura ips tequendama" data-ceco="28602063" data-dir="direccion  calle 5 no 36 - 173 a nombre de isabel cistina rios imagenes">
+                <td style="color: #94a3b8; font-weight: 600;">192</td>
+                <td><strong>Ay Dx Sura IPS Tequendama</strong><div style="font-size: 0.75rem; color: #64748b;">Direccion  Calle 5 No 36 - 173 a nombre de Isabel Cistina Rios Imagenes</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">28602063</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnosticas</td>
+                <td>2</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="eps zipaquira" data-ceco="217300410" data-dir="cra. 16 no. 7d-38 local 1 zipaquirá sura - jorge rodriguez - 3132568528">
+                <td style="color: #94a3b8; font-weight: 600;">193</td>
+                <td><strong>EPS Zipaquira</strong><div style="font-size: 0.75rem; color: #64748b;">Cra. 16 No. 7D-38 Local 1 Zipaquirá Sura - Jorge Rodriguez - 3132568528</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217300410</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>2</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">3</strong></td>
+                <td>3</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="sc servicios especiales bogotá" data-ceco="228400854" data-dir="carrera 65 n° 11 – 50 local 3-63 / c.c plaza central salud en casa">
+                <td style="color: #94a3b8; font-weight: 600;">194</td>
+                <td><strong>SC Servicios Especiales Bogotá</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 65 N° 11 – 50 Local 3-63 / C.C Plaza Central Salud en Casa</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400854</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>—</td>
+                <td>1</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">2</strong></td>
+                <td>2</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ips bello clínica heridas" data-ceco="228400618" data-dir="dirección: diagonal 50 #38-20, edificio tierragro piso 7, milton rojas ó daniela arias, contacto: 3147631127">
+                <td style="color: #94a3b8; font-weight: 600;">195</td>
+                <td><strong>IPS Bello Clínica Heridas</strong><div style="font-size: 0.75rem; color: #64748b;">Dirección: Diagonal 50 #38-20, Edificio Tierragro Piso 7, Milton Rojas ó Daniela Arias, Contacto: 3147631127</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400618</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">2</strong></td>
+                <td>2</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="plataforma bucaramanga" data-ceco="217300420" data-dir="calle 45  no.27a-69 - alejandra royo - 3213137834">
+                <td style="color: #94a3b8; font-weight: 600;">196</td>
+                <td><strong>Plataforma Bucaramanga</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 45  No.27A-69 - Alejandra Royo - 3213137834</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">217300420</td>
+                <td style="font-size: 0.8rem; color: #475569;">EPS Sura</td>
+                <td>2</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">2</strong></td>
+                <td>2</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ay dx salud sura andes center" data-ceco="288604204" data-dir="calle 53 # 35-14 piso 6°,  edificio andes center">
+                <td style="color: #94a3b8; font-weight: 600;">197</td>
+                <td><strong>Ay Dx Salud Sura Andes Center</strong><div style="font-size: 0.75rem; color: #64748b;">Calle 53 # 35-14 Piso 6°,  Edificio Andes Center</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288604204</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td>1</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">1</strong></td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="consultorio valledupar arl" data-ceco="228400937" data-dir="nombre de la sede: ips atel valledupar
+dirección sede:centro comercial orbe plaza
+calle 12 # 8-42 local 211
+ciudad: valledupar
+persona contacto: paola osorio garcía
+teléfono: 3042902186">
+                <td style="color: #94a3b8; font-weight: 600;">198</td>
+                <td><strong>Consultorio Valledupar ARL</strong><div style="font-size: 0.75rem; color: #64748b;">NOMBRE DE LA SEDE: IPS ATEL VALLEDUPAR
+DIRECCIÓN SEDE:CENTRO COMERCIAL ORBE PLAZA
+CALLE 12 # 8-42 LOCAL 211
+CIUDAD: VALLEDUPAR
+PERSONA CONTACTO: PAOLA OSORIO GARCÍA
+TELÉFONO: 3042902186</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400937</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">1</strong></td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="unidad de calificación" data-ceco="228400926" data-dir="direccion: cr 50 #79-179 atel altos del prado, contacto: dilson altamiranda - analista de operaciones, tel: 3005050803">
+                <td style="color: #94a3b8; font-weight: 600;">199</td>
+                <td><strong>Unidad de Calificación</strong><div style="font-size: 0.75rem; color: #64748b;">Direccion: CR 50 #79-179 ATEL Altos del prado, Contacto: Dilson Altamiranda - Analista de Operaciones, Tel: 3005050803</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400926</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">1</strong></td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm armenia norte" data-ceco="288602061" data-dir="diana carolina chamorro cevantes, ayudas diagnosticas sura armenia norte, cra 14 9 norte 16 piso 2 local 209 centro comercial mocawa , horario 9:00am a 2:00pm tel 3226826055. armenia quindio">
+                <td style="color: #94a3b8; font-weight: 600;">200</td>
+                <td><strong>PTM Armenia Norte</strong><div style="font-size: 0.75rem; color: #64748b;">Diana Carolina chamorro cevantes, Ayudas Diagnosticas Sura armenia norte, Cra 14 9 norte 16 piso 2 local 209 centro comercial mocawa , Horario 9:00am a 2:00pm tel 3226826055. Armenia quindio</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288602061</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnosticas</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">1</strong></td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="ptm comfama san antonio de prado" data-ceco="288601121" data-dir="calle 36 # 70-68 barrio san gabriel">
+                <td style="color: #94a3b8; font-weight: 600;">201</td>
+                <td><strong>PTM Comfama San Antonio De Prado</strong><div style="font-size: 0.75rem; color: #64748b;">CALLE 36 # 70-68 BARRIO SAN GABRIEL</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">288601121</td>
+                <td style="font-size: 0.8rem; color: #475569;">Ayudas Diagnósticas</td>
+                <td>—</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">1</strong></td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa rionegro ppr" data-ceco="228400371" data-dir="carrera 55ª # 35 – 227 city medica torre 1 piso 4 rionegro – antioquia">
+                <td style="color: #94a3b8; font-weight: 600;">202</td>
+                <td><strong>Salud en Casa Rionegro PPR</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 55ª # 35 – 227 City Medica torre 1 piso 4 Rionegro – Antioquia</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400371</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>1</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">1</strong></td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            
+              <tr data-sede="salud en casa rionegro bebé canguro" data-ceco="228400373" data-dir="carrera 55ª # 35 – 227 city medica torre 1 piso 4 rionegro – antioquia">
+                <td style="color: #94a3b8; font-weight: 600;">203</td>
+                <td><strong>Salud en Casa Rionegro Bebé Canguro</strong><div style="font-size: 0.75rem; color: #64748b;">Carrera 55ª # 35 – 227 City Medica torre 1 piso 4 Rionegro – Antioquia</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">228400373</td>
+                <td style="font-size: 0.8rem; color: #475569;">IPS Sura</td>
+                <td>—</td>
+                <td>—</td>
+                <td>1</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">1</strong></td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            
           </tbody>
         </table>
       </div>
 
-      <div class="section-heading">📦 5. Archivos Complementarios para Operaciones</div>
+      <div class="section-heading">
+        <span>📦 5. Archivos Complementarios para Operaciones</span>
+      </div>
       <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; font-size: 0.9rem;">
-        <p style="margin-bottom: 0.5rem;">Para la programación detallada de rutas, etiquetas y órdenes de compra con contactos y teléfonos de cada sede, consulte:</p>
+        <p style="margin-bottom: 0.5rem;">Para la programación detallada de rutas, etiquetas y órdenes de compra con contactos y teléfonos de cada una de las 203 sedes, consulte:</p>
         <ul style="padding-left: 1.25rem; color: #334155;">
-          <li><strong>Plan Maestro Excel:</strong> <code>sura-coffee-demand-analysis-2026.xlsx</code> (Contiene las 665 órdenes desglosadas por dirección, responsable y teléfono).</li>
+          <li><strong>Plan Maestro Excel:</strong> <code>Informe_Logistico_Cafe_Sura_2026.xlsx</code> (Contiene las 665 órdenes desglosadas por dirección, responsable y teléfono).</li>
           <li><strong>Formulario Original:</strong> <code>Formulario RFI AYC 2026.xlsx</code> (Fuente primaria de datos).</li>
         </ul>
       </div>
     </div>
   </div>
+
+  <script>
+    function filterSedes() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      const rows = document.querySelectorAll('#sedes-table tbody tr');
+      let visible = 0;
+
+      rows.forEach(row => {
+        const sede = row.getAttribute('data-sede') || '';
+        const ceco = row.getAttribute('data-ceco') || '';
+        const dir = row.getAttribute('data-dir') || '';
+        
+        if (!query || sede.includes(query) || ceco.includes(query) || dir.includes(query)) {
+          row.style.display = '';
+          visible++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      document.getElementById('counter-badge').textContent = 'Mostrando ' + visible + ' de ' + rows.length + ' sedes';
+    }
+  </script>
 </body>
 </html>

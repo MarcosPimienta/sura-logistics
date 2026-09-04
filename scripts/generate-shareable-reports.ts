@@ -43,7 +43,7 @@ async function generateReports() {
     });
   }
 
-  // Aggregations
+  // Aggregations by Sede
   const sedesMap = new Map<string, {
     sede: string;
     ceco: string;
@@ -63,7 +63,6 @@ async function generateReports() {
   const ciasMap = new Map<string, number>();
 
   rows.forEach(r => {
-    // Compania
     ciasMap.set(r.cia, (ciasMap.get(r.cia) || 0) + r.qty);
 
     if (!sedesMap.has(r.sede)) {
@@ -102,12 +101,12 @@ async function generateReports() {
 
   const sortedSedes = Array.from(sedesMap.values()).sort((a, b) => b.total - a.total);
 
-  // 1. Generate Markdown Report
+  // 1. Generate Markdown Report with ALL 203 SEDES
   const mdContent = `# INFORME EJECUTIVO: DEMANDA Y DISTRIBUCIÓN DE CAFÉ SURA 2026
 
 **Fecha de Emisión:** 4 de Septiembre de 2026  
 **Origen de Datos:** Formulario RFI AYC 2026  
-**Alcance:** Planificación Logística y Despacho de Café a Nivel Nacional  
+**Alcance:** Planificación Logística y Despacho de Café a Nivel Nacional (203 Sedes)  
 
 ---
 
@@ -117,7 +116,7 @@ El presente informe consolida los requerimientos de suministro de café para las
 
 ### Indicadores Clave (KPIs)
 * **Demanda Total de Café:** **4,389 bolsas de 2,500 gramos** (Equivalente a **10,972.5 kg** / ~11 toneladas).
-* **Total de Sedes con Requerimiento:** **203 sedes operativas** distribuidas en todo el país.
+* **Total de Sedes con Requerimiento:** **203 sedes operativas** a nivel nacional.
 * **Total de Despachos Programados:** **665 órdenes de entrega**.
 * **Frecuencia Operativa:** 4 olas de despacho en los meses de **Abril, Junio, Julio y Agosto**.
 
@@ -125,21 +124,15 @@ El presente informe consolida los requerimientos de suministro de café para las
 
 ## 2. DESGLOSE POR TIPO DE PRODUCTO
 
-El requerimiento se distribuye en dos referencias principales de café en presentación institucional de **2.5 kg**:
-
 | Código Material | Descripción del Producto | Unidad de Empaque | Bolsas Solicitadas | Kilos Totales | Participación |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | **308521** | **Café x 2500 gr** (Molido tradicional) | Bolsa 2.5 kg | **2,749** | 6,872.5 kg | **62.6%** |
 | **308610** | **Café en grano Regional x 2500gr** (Grano entero) | Bolsa 2.5 kg | **1,640** | 4,100.0 kg | **37.4%** |
 | **TOTAL** | | | **4,389** | **10,972.5 kg** | **100.0%** |
 
-*Nota Operativa:* 37.4% de la demanda corresponde a café en grano, el cual se destina a sedes corporativas y centros con máquinas de molienda automática incorporada. El 62.6% restante corresponde a café molido para cafeteras de goteo o dispensadores convencionales.
-
 ---
 
 ## 3. CRONOGRAMA MENSUAL DE DESPACHOS
-
-La distribución mensual requerida se estructura en cuatro olas logísticas:
 
 | Mes de Entrega | Bolsas Requeridas | Kilogramos Totales | Órdenes de Entrega | % del Volumen |
 | :--- | :---: | :---: | :---: | :---: |
@@ -151,7 +144,7 @@ La distribución mensual requerida se estructura en cuatro olas logísticas:
 
 ---
 
-## 4. DISTRIBUCIÓN POR COMPAÑÍA / UNIDAD DE NEGOCIO
+## 4. DISTRIBUCIÓN POR COMPAÑÍA
 
 | Compañía / Entidad | Bolsas Totales | Kilogramos | % Participación |
 | :--- | :---: | :---: | :---: |
@@ -162,40 +155,36 @@ ${Array.from(ciasMap.entries())
 
 ---
 
-## 5. TOP 25 SEDES CON MAYOR DEMANDA DE CAFÉ
+## 5. CONSOLIDADO NACIONAL: TODAS LAS SEDES QUE ORDENARON CAFÉ (203 SEDES)
 
-Estas 25 sedes concentran más del 40% del consumo total del grupo:
+Listado completo de las 203 sedes ordenadas por volumen total de demanda:
 
 | # | Sede | Centro de Costo | Abril | Junio | Julio | Agosto | Total Bolsas | Café Molido | Café Grano |
 | :-: | :--- | :---: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-${sortedSedes.slice(0, 25).map((s, idx) => 
-  `| ${idx + 1} | **${s.sede}** | \`${s.ceco}\` | ${s.abril} | ${s.junio} | ${s.julio} | ${s.agosto} | **${s.total}** | ${s.molido} | ${s.grano} |`
+${sortedSedes.map((s, idx) => 
+  `| ${idx + 1} | **${s.sede}** | \`${s.ceco}\` | ${s.abril || 0} | ${s.junio || 0} | ${s.julio || 0} | ${s.agosto || 0} | **${s.total}** | ${s.molido || 0} | ${s.grano || 0} |`
 ).join('\n')}
 
 ---
 
 ## 6. RECOMENDACIONES OPERATIVAS Y LOGÍSTICAS
 
-1. **Gestión de Lotes y Frescura:**
-   * Dado que los despachos se concentran en Abril, Junio, Julio y Agosto, se recomienda programar la tostión y molienda máximo 15 días antes de cada ventana de despacho para garantizar la frescura en taza.
-2. **Embalaje Secundario:**
-   * Las bolsas individuales son de **2.5 kg**. Se recomienda estandarizar cajas de corrugado de **4 bolsas (10 kg por caja)** o **5 bolsas (12.5 kg por caja)** con rotulación clara del número de orden y sede receptora.
-3. **Validación de Entrega en Destino:**
-   * Cada sede cuenta con persona responsable y teléfono registrado en el plan maestro. Se debe exigir firma y sello de remisión (Proof of Delivery - POD) con verificación física de unidades recibidas.
-4. **Archivo Adjunto de Datos:**
-   * Para la ejecución detallada de rutas y órdenes de compra, referirse al archivo Excel complementario: \`sura-coffee-demand-analysis-2026.xlsx\`.
+1. **Gestión de Lotes y Frescura:** Programar la tostión y molienda máximo 15 días antes de cada ventana mensual (Abril, Junio, Julio, Agosto).
+2. **Embalaje Secundario:** Agrupar en cajas de 4 o 5 bolsas (10 a 12.5 kg por bulto) con rotulación del ID de entrega y sede de destino.
+3. **Validación de Entrega en Destino:** Exigir firma y sello de remisión (POD) con verificación física de unidades por la persona a cargo.
+4. **Plan Maestro Detallado:** Para consultar direcciones de entrega, nombres de los responsables y teléfonos de contacto de cada una de las 203 sedes, remitirse al archivo \`Informe_Logistico_Cafe_Sura_2026.xlsx\` (pestaña *Plan Maestro de Despachos*).
 `;
 
   fs.writeFileSync('/home/fenix3819/sura-logistics/INFORME_EJECUTIVO_DEMANDA_CAFE_SURA_2026.md', mdContent);
-  console.log('✓ Markdown executive report generated: INFORME_EJECUTIVO_DEMANDA_CAFE_SURA_2026.md');
+  console.log('✓ Updated Markdown executive report with ALL 203 sedes: INFORME_EJECUTIVO_DEMANDA_CAFE_SURA_2026.md');
 
-  // 2. Generate Standalone HTML Report (Modern, printable, elegant)
+  // 2. Generate Standalone HTML Report with ALL 203 SEDES + Live Filter
   const htmlContent = `<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Informe Ejecutivo — Demanda de Café Sura 2026</title>
+  <title>Informe Ejecutivo — Demanda de Café Sura 2026 (Consolidado Nacional 203 Sedes)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -226,7 +215,7 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
     }
 
     .report-wrapper {
-      max-width: 1100px;
+      max-width: 1280px;
       margin: 0 auto;
       background: var(--bg-card);
       border-radius: 20px;
@@ -267,7 +256,7 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
     .report-subtitle {
       color: #94a3b8;
       font-size: 1.05rem;
-      max-width: 700px;
+      max-width: 750px;
     }
 
     .report-meta-grid {
@@ -306,7 +295,9 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
       margin: 2.5rem 0 1.25rem;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .section-heading:first-child { margin-top: 0; }
@@ -350,19 +341,52 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
       color: var(--text-muted);
     }
 
+    /* Search & Filter Bar */
+    .table-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      padding: 0.65rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 320px;
+      outline: none;
+      background: #ffffff;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-warm);
+    }
+
+    .counter-badge {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
     /* Tables */
     .data-table-wrapper {
       overflow-x: auto;
       border: 1px solid var(--border);
       border-radius: 12px;
       margin-bottom: 2rem;
+      max-height: 680px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     th {
@@ -371,9 +395,12 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
       font-weight: 700;
       padding: 0.85rem 1rem;
       border-bottom: 1px solid var(--border);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
 
     td {
@@ -409,15 +436,15 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
       align-items: center;
       gap: 0.5rem;
       box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
-      float: right;
     }
 
     .print-btn:hover { background: #d97706; }
 
     @media print {
       body { padding: 0; background: #fff; }
-      .report-wrapper { box-shadow: none; border: none; }
-      .print-btn { display: none; }
+      .report-wrapper { box-shadow: none; border: none; max-width: 100%; }
+      .print-btn, .table-controls { display: none; }
+      .data-table-wrapper { max-height: none; overflow: visible; }
     }
   </style>
 </head>
@@ -428,7 +455,7 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
         <div>
           <span class="badge-header">Informe Operativo Oficial</span>
           <h1 class="report-title">Demanda y Abastecimiento de Café SURA</h1>
-          <p class="report-subtitle">Consolidado Nacional y Plan Maestro de Despacho 2026 — Formulario RFI AYC</p>
+          <p class="report-subtitle">Consolidado Nacional Completo (203 Sedes) y Plan Maestro de Despacho 2026 — Formulario RFI AYC</p>
         </div>
         <button class="print-btn" onclick="window.print()">🖨 Imprimir / Guardar PDF</button>
       </div>
@@ -454,7 +481,9 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
     </div>
 
     <div class="report-body">
-      <div class="section-heading">📌 1. Resumen de Indicadores Clave</div>
+      <div class="section-heading">
+        <span>📌 1. Resumen de Indicadores Clave</span>
+      </div>
       <div class="kpi-row">
         <div class="kpi-card kpi-card-highlight">
           <div class="kpi-card-val">4,389</div>
@@ -470,12 +499,14 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
         </div>
         <div class="kpi-card">
           <div class="kpi-card-val">203</div>
-          <div class="kpi-card-label">Sedes Operativas Cubiertas</div>
+          <div class="kpi-card-label">Total Sedes con Pedido</div>
         </div>
       </div>
 
-      <div class="section-heading">☕ 2. Desglose por Especificación de Producto</div>
-      <div class="data-table-wrapper">
+      <div class="section-heading">
+        <span>☕ 2. Desglose por Especificación de Producto</span>
+      </div>
+      <div class="data-table-wrapper" style="max-height: none;">
         <table>
           <thead>
             <tr>
@@ -514,8 +545,10 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
         </table>
       </div>
 
-      <div class="section-heading">📅 3. Cronograma Mensual de Despachos</div>
-      <div class="data-table-wrapper">
+      <div class="section-heading">
+        <span>📅 3. Cronograma Mensual de Despachos</span>
+      </div>
+      <div class="data-table-wrapper" style="max-height: none;">
         <table>
           <thead>
             <tr>
@@ -566,14 +599,23 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
         </table>
       </div>
 
-      <div class="section-heading">🏢 4. Top 20 Sedes con Mayor Demanda de Café</div>
+      <div class="section-heading">
+        <span>🏢 4. Consolidado Nacional: Todas las Sedes que Ordenaron Café (203 Sedes)</span>
+      </div>
+
+      <div class="table-controls">
+        <input type="text" id="search-input" class="search-input" placeholder="🔍 Buscar por nombre de sede, centro de costo o dirección..." oninput="filterSedes()">
+        <span class="counter-badge" id="counter-badge">Mostrando 203 de 203 sedes</span>
+      </div>
+
       <div class="data-table-wrapper">
-        <table>
+        <table id="sedes-table">
           <thead>
             <tr>
               <th>#</th>
               <th>Sede</th>
-              <th>Centro de Costo</th>
+              <th>Centro Costo</th>
+              <th>Compañía</th>
               <th>Abr</th>
               <th>Jun</th>
               <th>Jul</th>
@@ -584,11 +626,12 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
             </tr>
           </thead>
           <tbody>
-            ${sortedSedes.slice(0, 20).map((s, idx) => `
-              <tr>
+            ${sortedSedes.map((s, idx) => `
+              <tr data-sede="${s.sede.toLowerCase()}" data-ceco="${s.ceco.toLowerCase()}" data-dir="${s.dir.toLowerCase()}">
                 <td style="color: #94a3b8; font-weight: 600;">${idx + 1}</td>
-                <td><strong>${s.sede}</strong></td>
-                <td style="font-family: monospace;">${s.ceco}</td>
+                <td><strong>${escapeHtml(s.sede)}</strong><div style="font-size: 0.75rem; color: #64748b;">${escapeHtml(s.dir || '—')}</div></td>
+                <td style="font-family: monospace; font-size: 0.8rem;">${escapeHtml(s.ceco)}</td>
+                <td style="font-size: 0.8rem; color: #475569;">${escapeHtml(s.cia)}</td>
                 <td>${s.abril || '—'}</td>
                 <td>${s.junio || '—'}</td>
                 <td>${s.julio || '—'}</td>
@@ -602,28 +645,56 @@ ${sortedSedes.slice(0, 25).map((s, idx) =>
         </table>
       </div>
 
-      <div class="section-heading">📦 5. Archivos Complementarios para Operaciones</div>
+      <div class="section-heading">
+        <span>📦 5. Archivos Complementarios para Operaciones</span>
+      </div>
       <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; font-size: 0.9rem;">
-        <p style="margin-bottom: 0.5rem;">Para la programación detallada de rutas, etiquetas y órdenes de compra con contactos y teléfonos de cada sede, consulte:</p>
+        <p style="margin-bottom: 0.5rem;">Para la programación detallada de rutas, etiquetas y órdenes de compra con contactos y teléfonos de cada una de las 203 sedes, consulte:</p>
         <ul style="padding-left: 1.25rem; color: #334155;">
-          <li><strong>Plan Maestro Excel:</strong> <code>sura-coffee-demand-analysis-2026.xlsx</code> (Contiene las 665 órdenes desglosadas por dirección, responsable y teléfono).</li>
+          <li><strong>Plan Maestro Excel:</strong> <code>Informe_Logistico_Cafe_Sura_2026.xlsx</code> (Contiene las 665 órdenes desglosadas por dirección, responsable y teléfono).</li>
           <li><strong>Formulario Original:</strong> <code>Formulario RFI AYC 2026.xlsx</code> (Fuente primaria de datos).</li>
         </ul>
       </div>
     </div>
   </div>
+
+  <script>
+    function filterSedes() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      const rows = document.querySelectorAll('#sedes-table tbody tr');
+      let visible = 0;
+
+      rows.forEach(row => {
+        const sede = row.getAttribute('data-sede') || '';
+        const ceco = row.getAttribute('data-ceco') || '';
+        const dir = row.getAttribute('data-dir') || '';
+        
+        if (!query || sede.includes(query) || ceco.includes(query) || dir.includes(query)) {
+          row.style.display = '';
+          visible++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      document.getElementById('counter-badge').textContent = 'Mostrando ' + visible + ' de ' + rows.length + ' sedes';
+    }
+  </script>
 </body>
 </html>`;
 
   fs.writeFileSync('/home/fenix3819/sura-logistics/Informe_Ejecutivo_Demanda_Cafe_Sura_2026.html', htmlContent);
-  console.log('✓ Standalone HTML executive report generated: Informe_Ejecutivo_Demanda_Cafe_Sura_2026.html');
+  console.log('✓ Updated Standalone HTML executive report with ALL 203 sedes + search bar: Informe_Ejecutivo_Demanda_Cafe_Sura_2026.html');
+}
 
-  // Also copy the Master Excel file to a clean, Spanish business name for distribution
-  fs.copyFileSync(
-    '/home/fenix3819/sura-logistics/sura-coffee-demand-analysis-2026.xlsx',
-    '/home/fenix3819/sura-logistics/Informe_Logistico_Cafe_Sura_2026.xlsx'
-  );
-  console.log('✓ Master Excel distribution file created: Informe_Logistico_Cafe_Sura_2026.xlsx');
+function escapeHtml(str: string) {
+  return String(str).replace(/[&<>"']/g, (m) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[m] || m);
 }
 
 generateReports().catch(console.error);
