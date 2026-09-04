@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe Ejecutivo — Demanda de Café Sura 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #1e293b;
+      --accent: #d97706;
+      --accent-light: #fef3c7;
+      --accent-warm: #f59e0b;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      line-height: 1.6;
+      padding: 2.5rem 1rem;
+    }
+
+    .report-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .report-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 3rem 3.5rem;
+      position: relative;
+    }
+
+    .badge-header {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fcd34d;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: 30px;
+      margin-bottom: 1.25rem;
+    }
+
+    .report-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .report-subtitle {
+      color: #94a3b8;
+      font-size: 1.05rem;
+      max-width: 700px;
+    }
+
+    .report-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meta-item .meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      margin-bottom: 0.25rem;
+    }
+
+    .meta-item .meta-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .report-body {
+      padding: 3rem 3.5rem;
+    }
+
+    .section-heading {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 2.5rem 0 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-heading:first-child { margin-top: 0; }
+
+    /* KPI Highlights Grid */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .kpi-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: transform 0.2s;
+    }
+
+    .kpi-card-highlight {
+      background: linear-gradient(145deg, #fffbeb, #fef3c7);
+      border-color: #fde68a;
+    }
+
+    .kpi-card-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .kpi-card-highlight .kpi-card-val {
+      color: #b45309;
+    }
+
+    .kpi-card-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Tables */
+    .data-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    .tag-product {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .tag-molido { background: #e0f2fe; color: #0369a1; }
+    .tag-grano { background: #fef3c7; color: #92400e; }
+
+    .print-btn {
+      background: var(--accent-warm);
+      color: #000;
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+      float: right;
+    }
+
+    .print-btn:hover { background: #d97706; }
+
+    @media print {
+      body { padding: 0; background: #fff; }
+      .report-wrapper { box-shadow: none; border: none; }
+      .print-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-wrapper">
+    <div class="report-header">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <span class="badge-header">Informe Operativo Oficial</span>
+          <h1 class="report-title">Demanda y Abastecimiento de Café SURA</h1>
+          <p class="report-subtitle">Consolidado Nacional y Plan Maestro de Despacho 2026 — Formulario RFI AYC</p>
+        </div>
+        <button class="print-btn" onclick="window.print()">🖨 Imprimir / Guardar PDF</button>
+      </div>
+
+      <div class="report-meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">Fecha del Informe</div>
+          <div class="meta-val">Septiembre 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Sedes con Requerimiento</div>
+          <div class="meta-val">203 Sedes</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Órdenes de Despacho</div>
+          <div class="meta-val">665 Entregas</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Volumen Total</div>
+          <div class="meta-val">10.97 Toneladas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-body">
+      <div class="section-heading">📌 1. Resumen de Indicadores Clave</div>
+      <div class="kpi-row">
+        <div class="kpi-card kpi-card-highlight">
+          <div class="kpi-card-val">4,389</div>
+          <div class="kpi-card-label">Bolsas de Café (2.5 kg) Solicitadas</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-val">2,749</div>
+          <div class="kpi-card-label">Bolsas Café Molido (62.6%)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-val">1,640</div>
+          <div class="kpi-card-label">Bolsas Café en Grano (37.4%)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-card-val">203</div>
+          <div class="kpi-card-label">Sedes Operativas Cubiertas</div>
+        </div>
+      </div>
+
+      <div class="section-heading">☕ 2. Desglose por Especificación de Producto</div>
+      <div class="data-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Código Material</th>
+              <th>Descripción del Producto</th>
+              <th>Unidad de Empaque</th>
+              <th>Bolsas Totales</th>
+              <th>Kilogramos</th>
+              <th>% Participación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>308521</strong></td>
+              <td>Café x 2500 gr (Molido tradicional)</td>
+              <td>1 Bolsa X 2.5 kg</td>
+              <td><strong>2,749</strong></td>
+              <td>6,872.5 kg</td>
+              <td><span class="tag-product tag-molido">62.6%</span></td>
+            </tr>
+            <tr>
+              <td><strong>308610</strong></td>
+              <td>Café en grano Regional x 2500gr (Grano entero)</td>
+              <td>1 Bolsa X 2.5 kg</td>
+              <td><strong>1,640</strong></td>
+              <td>4,100.0 kg</td>
+              <td><span class="tag-product tag-grano">37.4%</span></td>
+            </tr>
+            <tr style="background: #f8fafc; font-weight: 700;">
+              <td colspan="3">TOTAL CONSOLIDADO NACIONAL</td>
+              <td>4,389 bolsas</td>
+              <td>10,972.5 kg</td>
+              <td>100.0%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-heading">📅 3. Cronograma Mensual de Despachos</div>
+      <div class="data-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Mes de Entrega</th>
+              <th>Bolsas Requeridas</th>
+              <th>Kilos Totales</th>
+              <th>Órdenes de Entrega</th>
+              <th>% del Volumen Anual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Abril 2026</strong></td>
+              <td>1,211 bolsas</td>
+              <td>3,027.5 kg</td>
+              <td>179 entregas</td>
+              <td>27.6%</td>
+            </tr>
+            <tr>
+              <td><strong>Junio 2026</strong></td>
+              <td>1,244 bolsas</td>
+              <td>3,110.0 kg</td>
+              <td>184 entregas</td>
+              <td>28.3%</td>
+            </tr>
+            <tr>
+              <td><strong>Julio 2026</strong></td>
+              <td>1,031 bolsas</td>
+              <td>2,577.5 kg</td>
+              <td>158 entregas</td>
+              <td>23.5%</td>
+            </tr>
+            <tr>
+              <td><strong>Agosto 2026</strong></td>
+              <td>903 bolsas</td>
+              <td>2,257.5 kg</td>
+              <td>144 entregas</td>
+              <td>20.6%</td>
+            </tr>
+            <tr style="background: #f8fafc; font-weight: 700;">
+              <td>TOTAL 2026</td>
+              <td>4,389 bolsas</td>
+              <td>10,972.5 kg</td>
+              <td>665 órdenes</td>
+              <td>100.0%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-heading">🏢 4. Top 20 Sedes con Mayor Demanda de Café</div>
+      <div class="data-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Sede</th>
+              <th>Centro de Costo</th>
+              <th>Abr</th>
+              <th>Jun</th>
+              <th>Jul</th>
+              <th>Ago</th>
+              <th>Total Bolsas</th>
+              <th>Molido</th>
+              <th>Grano</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">1</td>
+                <td><strong>IPS Salud Sura Industriales</strong></td>
+                <td style="font-family: monospace;">228400614</td>
+                <td>30</td>
+                <td>40</td>
+                <td>30</td>
+                <td>40</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">140</strong></td>
+                <td>140</td>
+                <td>0</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">2</td>
+                <td><strong>Campus Almacen</strong></td>
+                <td style="font-family: monospace;">1801-0001</td>
+                <td>140</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">140</strong></td>
+                <td>0</td>
+                <td>140</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">3</td>
+                <td><strong>Salud Sura Bogotá Calle 100</strong></td>
+                <td style="font-family: monospace;">228400806</td>
+                <td>25</td>
+                <td>29</td>
+                <td>29</td>
+                <td>31</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">114</strong></td>
+                <td>114</td>
+                <td>0</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">4</td>
+                <td><strong>Edificio cem,piso 9 sede para el encuentro</strong></td>
+                <td style="font-family: monospace;">182124002</td>
+                <td>40</td>
+                <td>20</td>
+                <td>25</td>
+                <td>20</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">105</strong></td>
+                <td>0</td>
+                <td>105</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">5</td>
+                <td><strong>IPS Portal del Genoves Torre BTS</strong></td>
+                <td style="font-family: monospace;">228400936</td>
+                <td>10</td>
+                <td>30</td>
+                <td>25</td>
+                <td>25</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">90</strong></td>
+                <td>90</td>
+                <td>0</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">6</td>
+                <td><strong>Camacol</strong></td>
+                <td style="font-family: monospace;">182121002</td>
+                <td>—</td>
+                <td>40</td>
+                <td>25</td>
+                <td>20</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">85</strong></td>
+                <td>0</td>
+                <td>85</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">7</td>
+                <td><strong>Oficina Central</strong></td>
+                <td style="font-family: monospace;">182121007</td>
+                <td>—</td>
+                <td>40</td>
+                <td>25</td>
+                <td>20</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">85</strong></td>
+                <td>0</td>
+                <td>85</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">8</td>
+                <td><strong>Torre Proteccion 5 y 6</strong></td>
+                <td style="font-family: monospace;">182125006</td>
+                <td>—</td>
+                <td>40</td>
+                <td>25</td>
+                <td>20</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">85</strong></td>
+                <td>0</td>
+                <td>85</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">9</td>
+                <td><strong>Torre Suramericana</strong></td>
+                <td style="font-family: monospace;">182121011</td>
+                <td>—</td>
+                <td>40</td>
+                <td>25</td>
+                <td>20</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">85</strong></td>
+                <td>0</td>
+                <td>85</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">10</td>
+                <td><strong>Laboratorio Industriales</strong></td>
+                <td style="font-family: monospace;">288601011</td>
+                <td>35</td>
+                <td>30</td>
+                <td>—</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">75</strong></td>
+                <td>75</td>
+                <td>0</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">11</td>
+                <td><strong>Centro Empresa Cali Sede de encuentro</strong></td>
+                <td style="font-family: monospace;">182123001</td>
+                <td>50</td>
+                <td>25</td>
+                <td>—</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">75</strong></td>
+                <td>0</td>
+                <td>75</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">12</td>
+                <td><strong>Viva Envigado Sede encuentro Piso 10</strong></td>
+                <td style="font-family: monospace;">182121003</td>
+                <td>20</td>
+                <td>15</td>
+                <td>40</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">75</strong></td>
+                <td>0</td>
+                <td>75</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">13</td>
+                <td><strong>Sede Encuentro Portal de Genoves</strong></td>
+                <td style="font-family: monospace;">182122002</td>
+                <td>52</td>
+                <td>19</td>
+                <td>—</td>
+                <td>2</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">73</strong></td>
+                <td>2</td>
+                <td>71</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">14</td>
+                <td><strong>Sede Encuentro Mall 10 Piso 2</strong></td>
+                <td style="font-family: monospace;">182121006</td>
+                <td>30</td>
+                <td>18</td>
+                <td>17</td>
+                <td>5</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">70</strong></td>
+                <td>0</td>
+                <td>70</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">15</td>
+                <td><strong>Laboratorio Central Bogotá</strong></td>
+                <td style="font-family: monospace;">288603013</td>
+                <td>15</td>
+                <td>18</td>
+                <td>10</td>
+                <td>13</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">56</strong></td>
+                <td>56</td>
+                <td>0</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">16</td>
+                <td><strong>Centros de Servicios Bogota Calle 137</strong></td>
+                <td style="font-family: monospace;">509003002</td>
+                <td>10</td>
+                <td>10</td>
+                <td>25</td>
+                <td>10</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">55</strong></td>
+                <td>40</td>
+                <td>15</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">17</td>
+                <td><strong>EPS Almacentro</strong></td>
+                <td style="font-family: monospace;">217300210</td>
+                <td>—</td>
+                <td>20</td>
+                <td>20</td>
+                <td>15</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">55</strong></td>
+                <td>55</td>
+                <td>0</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">18</td>
+                <td><strong>Sede para el encuentro Ibague</strong></td>
+                <td style="font-family: monospace;">182125004</td>
+                <td>15</td>
+                <td>25</td>
+                <td>15</td>
+                <td>—</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">55</strong></td>
+                <td>10</td>
+                <td>45</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">19</td>
+                <td><strong>Ay Dx Sao Paulo</strong></td>
+                <td style="font-family: monospace;">288601021</td>
+                <td>10</td>
+                <td>16</td>
+                <td>14</td>
+                <td>14</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">54</strong></td>
+                <td>54</td>
+                <td>0</td>
+              </tr>
+            
+              <tr>
+                <td style="color: #94a3b8; font-weight: 600;">20</td>
+                <td><strong>Sede encuentro Gerencia de Servicios Financieros 104</strong></td>
+                <td style="font-family: monospace;">182124004</td>
+                <td>5</td>
+                <td>10</td>
+                <td>18</td>
+                <td>18</td>
+                <td><strong style="color: #b45309; font-size: 1rem;">51</strong></td>
+                <td>0</td>
+                <td>51</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-heading">📦 5. Archivos Complementarios para Operaciones</div>
+      <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; font-size: 0.9rem;">
+        <p style="margin-bottom: 0.5rem;">Para la programación detallada de rutas, etiquetas y órdenes de compra con contactos y teléfonos de cada sede, consulte:</p>
+        <ul style="padding-left: 1.25rem; color: #334155;">
+          <li><strong>Plan Maestro Excel:</strong> <code>sura-coffee-demand-analysis-2026.xlsx</code> (Contiene las 665 órdenes desglosadas por dirección, responsable y teléfono).</li>
+          <li><strong>Formulario Original:</strong> <code>Formulario RFI AYC 2026.xlsx</code> (Fuente primaria de datos).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
