@@ -1,0 +1,11 @@
+Priority Status,Location ID,Location Name,Region,Current Stock,Min Threshold,Deficit,Pack Size,Recommended Dispatch
+CRITICAL,"LOC-101","Sura Headquarters - Torre 1","Bogota - Calle 26",2,30,28,5,30
+CRITICAL,"LOC-105","Sede Medellin Poblado","Medellin",3,25,22,5,25
+CRITICAL,"LOC-102","Sura Sede Norte Cafe","Bogota - Usaquen",0,20,20,5,20
+CRITICAL,"LOC-107","Sucursal Cali Granada","Cali",5,20,15,5,15
+CRITICAL,"LOC-109","Sura Bucaramanga Cabecera","Bucaramanga",1,15,14,5,15
+WARNING,"LOC-103","Centro de Servicios Salitre","Bogota - Salitre",8,25,17,5,20
+WARNING,"LOC-104","Sucursal Plaza Claro","Bogota - Salitre",14,15,1,5,5
+SUFFICIENT,"LOC-106","Sede Medellin Centro","Medellin",22,20,0,5,0
+SUFFICIENT,"LOC-108","Sucursal Barranquilla Prado","Barranquilla",18,15,0,5,0
+SURPLUS,"LOC-110","Hub Logistico Principal","Bogota - Funza",120,50,0,10,0

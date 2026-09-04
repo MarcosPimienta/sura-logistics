@@ -1,69 +1,83 @@
-# Sura Logistics
+# Sura Logistics — Coffee Bag Demand Analyzer
 
-This repository is configured for **Spec-Driven Development (SDD)** powered by [OpenSpec](https://github.com/Fission-AI/OpenSpec).
+Automated spreadsheet ingestion and location demand analysis engine to determine which operating locations require coffee bag replenishments.
+
+---
+
+## 🚀 Quick Start
+
+### 1. Web Dashboard
+Start the local server and open the web dashboard:
+```bash
+npm start
+```
+Visit **[http://localhost:3000](http://localhost:3000)** in your browser:
+- **Drag & Drop** any Excel workbook (`.xlsx`, `.xls`).
+- **Interactive KPI Cards** displaying critical shortages, warning deficits, and total bags needed.
+- **Search & Filter** locations by status (`CRITICAL`, `WARNING`, `SUFFICIENT`), location name, or region.
+- **Export Replenishment Manifest** directly to Excel (`.xlsx`) or CSV.
+- Click **"🧪 Load Sample Data"** in the top bar to preview with built-in data.
+
+### 2. Command-Line Interface (CLI)
+You can also run batch analysis directly from the terminal:
+```bash
+# Basic terminal summary table
+npm run analyze -- sample-inventory.xlsx
+
+# Export formatted Excel manifest alongside file
+npm run analyze -- sample-inventory.xlsx --export-excel
+
+# Export CSV manifest
+npm run analyze -- sample-inventory.xlsx --export-csv
+```
+
+### 3. Run Automated Tests
+```bash
+npm test
+```
+
+---
+
+## 📊 Spreadsheet Format & Column Mapping
+
+The system automatically detects and maps column headers, supporting English and Spanish variations:
+
+| Field | Required | Recognized Header Aliases |
+| :--- | :---: | :--- |
+| **Location ID** | Optional* | `Location ID`, `ID`, `Code`, `Store #`, `Codigo`, `Sucursal ID` |
+| **Location Name** | Required* | `Location Name`, `Location`, `Store Name`, `Branch`, `Sucursal`, `Sede`, `Nombre` |
+| **Current Stock** | Required | `Current Stock`, `Stock`, `Coffee Bags`, `Bags`, `Existencias`, `Bolsas`, `On Hand` |
+| **Min Threshold** | Optional | `Min Threshold`, `Threshold`, `Minimum Stock`, `Min`, `Stock Minimo`, `Reorder Level` *(default: 10)* |
+| **Pack Size** | Optional | `Pack Size`, `Package Size`, `Caja`, `Paquete`, `Packaging Unit` *(default: 1)* |
+| **Daily Burn** | Optional | `Daily Consumption`, `Avg Daily Consumption`, `Consumo Diario` |
+| **Region** | Optional | `Region`, `City`, `Zone`, `Ciudad`, `Area` |
+
+*\*Note: If Location ID is omitted, Location Name is used as the unique key, and vice versa.*
+
+---
+
+## ⚙️ Demand & Replenishment Logic
+
+1. **Deficit Calculation**:
+   $$\text{Deficit} = \max(0, \text{Minimum Threshold} - \text{Current Stock})$$
+
+2. **Packaging Unit Rounding**:
+   If a packaging unit / pack size is specified (e.g. 5 bags per case), replenishment is rounded up to complete packs:
+   $$\text{Recommended Replenishment} = \left\lceil \frac{\text{Deficit}}{\text{Pack Size}} \right\rceil \times \text{Pack Size}$$
+
+3. **Urgency Classification**:
+   - 🔴 **CRITICAL**: Current stock is $0$ or $\le 30\%$ of the minimum threshold.
+   - 🟡 **WARNING**: Current stock is below the minimum threshold ($30\% - 99\%$).
+   - 🟢 **SUFFICIENT**: Current stock meets or exceeds minimum threshold.
+   - 🔵 **SURPLUS**: Current stock exceeds $150\%$ of the minimum threshold.
 
 ---
 
 ## 🛠 Spec-Driven Development Workflow (`/opsx`)
 
-The `/opsx` commands provide a structured, spec-first development cycle ensuring requirements, architecture, and task plans are vetted before implementation:
-
-```
-+----------------+      +----------------+      +----------------+      +----------------+
-| /opsx:explore  | ---> | /opsx:propose  | ---> |  /opsx:apply   | ---> | /opsx:archive  |
-| (Think & map)  |      | (Spec & plan)  |      |  (Implement)   |      | (Merge & seal) |
-+----------------+      +----------------+      +----------------+      +----------------+
-```
-
-### Slash Commands
-
-| Command | Alias | Description |
-| :--- | :--- | :--- |
-| `/opsx:explore` | `/opsx-explore` | Enter exploration mode to research the problem space, compare options, and sketch architectural designs without writing code. |
-| `/opsx:propose <name>` | `/opsx-propose <name>` | Scaffold a change proposal and generate all spec artifacts (`proposal.md`, `design.md`, delta specs, and `tasks.md`). |
-| `/opsx:apply` | `/opsx-apply` | Implement the tasks sequentially from `tasks.md` in the current active change. |
-| `/opsx:sync` | `/opsx-sync` | Sync and update main specifications from delta specs when changes evolve. |
-| `/opsx:archive` | `/opsx-archive` | Archive completed changes into `openspec/changes/archive/` and update the main specs. |
-
----
-
-## 📁 OpenSpec Directory Structure
-
-```
-sura-logistics/
-├── .agent/                  # Antigravity agent configuration
-│   ├── skills/              # OpenSpec skills (propose, explore, apply, sync, archive)
-│   └── workflows/           # Slash command workflow triggers (/opsx:*)
-├── .agents/ -> .agent       # Compatibility symlink for Antigravity workspace
-└── openspec/
-    ├── specs/               # Authoritative system specifications (source of truth)
-    └── changes/             # Active delta changes and proposals
-        └── archive/         # Completed and archived changes
-```
-
----
-
-## 💻 OpenSpec CLI Reference
-
-You can also interact directly with the `openspec` CLI:
-
-- **List active changes:**
-  ```bash
-  openspec list
-  ```
-- **List main specs:**
-  ```bash
-  openspec list --specs
-  ```
-- **Inspect change progress:**
-  ```bash
-  openspec status --change "<change-name>"
-  ```
-- **Validate specs and changes:**
-  ```bash
-  openspec validate
-  ```
-- **Create a change manually:**
-  ```bash
-  openspec new change "<change-name>"
-  ```
+This project follows the OpenSpec development lifecycle:
+- `/opsx:explore`: Map requirements and investigate problems.
+- `/opsx:propose`: Create change proposals, designs, and task checklists.
+- `/opsx:apply`: Implement change tasks.
+- `/opsx:sync`: Sync delta specifications to main specs.
+- `/opsx:archive`: Archive completed change records.

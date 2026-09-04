@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sura Logistics — Coffee Bag Demand Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: rgba(18, 24, 38, 0.75);
+      --bg-card-hover: rgba(28, 36, 56, 0.85);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(245, 158, 11, 0.4);
+      --accent-amber: #f59e0b;
+      --accent-amber-glow: rgba(245, 158, 11, 0.2);
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+      --accent-blue: #3b82f6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.05) 0px, transparent 50%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(9, 13, 22, 0.8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #f59e0b, #b45309);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 15px var(--accent-amber-glow);
+    }
+
+    .brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-subtle);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      box-shadow: 0 2px 10px var(--accent-amber-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px var(--accent-amber-glow);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Upload Dropzone */
+    .dropzone-container {
+      background: var(--bg-card);
+      border: 2px dashed var(--border-subtle);
+      border-radius: 16px;
+      padding: 3.5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dropzone-container:hover, .dropzone-container.dragover {
+      border-color: var(--accent-amber);
+      background: rgba(245, 158, 11, 0.03);
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
+    }
+
+    .dropzone-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1.25rem;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .dropzone-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .dropzone-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      display: none;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: transform 0.2s;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .kpi-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .kpi-value {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .kpi-critical .kpi-value { color: var(--accent-red); }
+    .kpi-warning .kpi-value { color: var(--accent-amber); }
+    .kpi-success .kpi-value { color: var(--accent-green); }
+
+    /* Results Table Section */
+    .results-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+    }
+
+    .table-toolbar {
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: var(--border-subtle);
+    }
+
+    .search-box {
+      padding: 0.5rem 0.9rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      min-width: 240px;
+    }
+
+    .search-box:focus {
+      border-color: var(--accent-amber);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      max-height: 520px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: rgba(14, 19, 30, 0.95);
+      position: sticky;
+      top: 0;
+      padding: 0.85rem 1rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-critical {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .badge-warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-sufficient {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-surplus {
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .dispatch-val {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fbbf24;
+    }
+
+    .loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(9, 13, 22, 0.8);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 10;
+      display: none;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(245, 158, 11, 0.2);
+      border-top-color: var(--accent-amber);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-icon">☕</div>
+      <div>
+        <h1 class="brand-title">Sura Logistics</h1>
+        <p class="brand-subtitle">Coffee Bag Location Demand & Replenishment Engine</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" id="btn-sample" onclick="loadSampleAnalysis()">
+        🧪 Load Sample Data
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Dropzone Area -->
+    <div class="dropzone-container" id="dropzone" onclick="document.getElementById('file-input').click()">
+      <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <div style="font-weight: 600;">Analyzing inventory workbook...</div>
+      </div>
+      <div class="dropzone-icon">📊</div>
+      <h2 class="dropzone-title">Upload Inventory Spreadsheet</h2>
+      <p class="dropzone-desc">Drag & drop your Excel file (.xlsx, .xls) here or click to browse</p>
+      <button class="btn btn-primary" onclick="event.stopPropagation(); document.getElementById('file-input').click();">
+        Choose File
+      </button>
+      <input type="file" id="file-input" class="file-input" accept=".xlsx,.xls">
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid" id="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-label">Total Locations</span>
+        <span class="kpi-value" id="kpi-total">0</span>
+      </div>
+      <div class="kpi-card kpi-critical">
+        <span class="kpi-label">Critical Shortages</span>
+        <span class="kpi-value" id="kpi-critical">0</span>
+      </div>
+      <div class="kpi-card kpi-warning">
+        <span class="kpi-label">Warning Deficits</span>
+        <span class="kpi-value" id="kpi-warning">0</span>
+      </div>
+      <div class="kpi-card kpi-success">
+        <span class="kpi-label">Total Coffee Bags to Dispatch</span>
+        <span class="kpi-value" id="kpi-bags">0</span>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-section" id="results-section">
+      <div class="table-toolbar">
+        <div class="filter-tabs">
+          <button class="tab-btn active" onclick="setFilter('all', this)">All Locations</button>
+          <button class="tab-btn" onclick="setFilter('shortage', this)">Needs Replenishment</button>
+          <button class="tab-btn" onclick="setFilter('critical', this)">Critical Only</button>
+          <button class="tab-btn" onclick="setFilter('sufficient', this)">Sufficient</button>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+          <input type="text" id="search-box" class="search-box" placeholder="Search location name or ID..." oninput="renderTable()">
+          <button class="btn btn-secondary" onclick="exportManifest('excel')">📥 Export Excel</button>
+          <button class="btn btn-secondary" onclick="exportManifest('csv')">📄 Export CSV</button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Location ID</th>
+              <th>Location Name</th>
+              <th>Region</th>
+              <th>Current Stock</th>
+              <th>Min Threshold</th>
+              <th>Deficit</th>
+              <th>Pack Size</th>
+              <th>Dispatch Needed</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let currentSummary = null;
+    let activeFilter = 'all';
+
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const loadingOverlay = document.getElementById('loading-overlay');
+
+    // Drag & drop events
+    ['dragenter', 'dragover'].forEach(name => {
+      dropzone.addEventListener(name, (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(name => {
+      dropzone.addEventListener(name, (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+      });
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      const files = e.dataTransfer.files;
+      if (files && files.length > 0) {
+        uploadFile(files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (fileInput.files && fileInput.files.length > 0) {
+        uploadFile(fileInput.files[0]);
+      }
+    });
+
+    async function uploadFile(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      loadingOverlay.style.display = 'flex';
+
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Failed to analyze file');
+        }
+
+        displayResults(data.summary);
+      } catch (err) {
+        alert('Error: ' + err.message);
+      } finally {
+        loadingOverlay.style.display = 'none';
+      }
+    }
+
+    function displayResults(summary) {
+      currentSummary = summary;
+
+      // Update KPI
+      document.getElementById('kpi-total').textContent = summary.totalLocations;
+      document.getElementById('kpi-critical').textContent = summary.criticalCount;
+      document.getElementById('kpi-warning').textContent = summary.warningCount;
+      document.getElementById('kpi-bags').textContent = `${summary.totalBagsNeeded} bags`;
+
+      document.getElementById('kpi-grid').style.display = 'grid';
+      document.getElementById('results-section').style.display = 'flex';
+
+      renderTable();
+    }
+
+    function setFilter(filter, btn) {
+      activeFilter = filter;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTable();
+    }
+
+    function renderTable() {
+      if (!currentSummary) return;
+
+      const searchTerm = document.getElementById('search-box').value.toLowerCase().trim();
+      const tbody = document.getElementById('table-body');
+      tbody.innerHTML = '';
+
+      const filtered = currentSummary.results.filter(item => {
+        // Tab filter
+        if (activeFilter === 'shortage' && item.deficit <= 0) return false;
+        if (activeFilter === 'critical' && item.urgency !== 'CRITICAL') return false;
+        if (activeFilter === 'sufficient' && item.deficit > 0) return false;
+
+        // Search filter
+        if (searchTerm) {
+          const matchId = item.locationId.toLowerCase().includes(searchTerm);
+          const matchName = item.locationName.toLowerCase().includes(searchTerm);
+          const matchRegion = (item.region || '').toLowerCase().includes(searchTerm);
+          return matchId || matchName || matchRegion;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 2rem;">No matching locations found</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const tr = document.createElement('tr');
+        const badgeClass = `badge badge-${item.urgency.toLowerCase()}`;
+        const dispatchHighlight = item.recommendedReplenishment > 0 ? 'dispatch-val' : '';
+
+        tr.innerHTML = `
+          <td><span class="${badgeClass}">${item.urgency}</span></td>
+          <td style="font-family: monospace; font-weight: 600;">${escapeHtml(item.locationId)}</td>
+          <td style="font-weight: 500;">${escapeHtml(item.locationName)}</td>
+          <td style="color: var(--text-muted);">${escapeHtml(item.region || '—')}</td>
+          <td>${item.currentStock}</td>
+          <td>${item.minimumThreshold}</td>
+          <td style="${item.deficit > 0 ? 'color: var(--accent-red); font-weight: 600;' : ''}">${item.deficit}</td>
+          <td style="color: var(--text-muted);">${item.packagingUnit}</td>
+          <td class="${dispatchHighlight}">${item.recommendedReplenishment > 0 ? item.recommendedReplenishment + ' bags' : '0'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function exportManifest(type) {
+      if (!currentSummary) return;
+      try {
+        const endpoint = type === 'excel' ? '/api/export/excel' : '/api/export/csv';
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ summary: currentSummary }),
+        });
+
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = type === 'excel' ? 'sura-replenishment-manifest.xlsx' : 'sura-replenishment-manifest.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      } catch (e) {
+        alert('Export failed: ' + e.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+
+    // Mock sample dataset for instant one-click testing
+    function loadSampleAnalysis() {
+      const sampleRecords = [
+        { locationId: 'LOC-01', locationName: 'Sura Downtown Central', currentStock: 2, minimumThreshold: 25, packagingUnit: 5, region: 'Bogota - Centro', dailyConsumption: 4 },
+        { locationId: 'LOC-02', locationName: 'Financial Center Express', currentStock: 0, minimumThreshold: 20, packagingUnit: 5, region: 'Bogota - Norte', dailyConsumption: 5 },
+        { locationId: 'LOC-03', locationName: 'Airport Terminal 1 Hub', currentStock: 12, minimumThreshold: 30, packagingUnit: 10, region: 'El Dorado', dailyConsumption: 6 },
+        { locationId: 'LOC-04', locationName: 'Chapinero High Street', currentStock: 24, minimumThreshold: 20, packagingUnit: 5, region: 'Bogota - Chapinero', dailyConsumption: 3 },
+        { locationId: 'LOC-05', locationName: 'Santa Fe Mall Kiosk', currentStock: 7, minimumThreshold: 15, packagingUnit: 5, region: 'Bogota - Suba', dailyConsumption: 2 },
+        { locationId: 'LOC-06', locationName: 'Zona Rosa Specialty Corner', currentStock: 35, minimumThreshold: 20, packagingUnit: 5, region: 'Bogota - Zona T', dailyConsumption: 3 },
+      ];
+
+      // Send to analyzer on client or fetch
+      fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      }).catch(() => {});
+
+      // Simulate client direct analysis for immediate rendering
+      const summary = {
+        totalLocations: 6,
+        locationsNeedingStock: 4,
+        totalBagsNeeded: 75,
+        criticalCount: 2,
+        warningCount: 2,
+        sufficientCount: 2,
+        generatedAt: new Date().toISOString(),
+        results: [
+          { locationId: 'LOC-02', locationName: 'Financial Center Express', currentStock: 0, minimumThreshold: 20, deficit: 20, recommendedReplenishment: 20, packagingUnit: 5, urgency: 'CRITICAL', region: 'Bogota - Norte' },
+          { locationId: 'LOC-01', locationName: 'Sura Downtown Central', currentStock: 2, minimumThreshold: 25, deficit: 23, recommendedReplenishment: 25, packagingUnit: 5, urgency: 'CRITICAL', region: 'Bogota - Centro' },
+          { locationId: 'LOC-03', locationName: 'Airport Terminal 1 Hub', currentStock: 12, minimumThreshold: 30, deficit: 18, recommendedReplenishment: 20, packagingUnit: 10, urgency: 'WARNING', region: 'El Dorado' },
+          { locationId: 'LOC-05', locationName: 'Santa Fe Mall Kiosk', currentStock: 7, minimumThreshold: 15, deficit: 8, recommendedReplenishment: 10, packagingUnit: 5, urgency: 'WARNING', region: 'Bogota - Suba' },
+          { locationId: 'LOC-04', locationName: 'Chapinero High Street', currentStock: 24, minimumThreshold: 20, deficit: 0, recommendedReplenishment: 0, packagingUnit: 5, urgency: 'SUFFICIENT', region: 'Bogota - Chapinero' },
+          { locationId: 'LOC-06', locationName: 'Zona Rosa Specialty Corner', currentStock: 35, minimumThreshold: 20, deficit: 0, recommendedReplenishment: 0, packagingUnit: 5, urgency: 'SURPLUS', region: 'Bogota - Zona T' },
+        ],
+        ingestionErrors: []
+      };
+
+      displayResults(summary);
+    }
+  </script>
+</body>
+</html>
